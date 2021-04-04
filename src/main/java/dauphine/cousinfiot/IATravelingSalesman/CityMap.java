@@ -22,5 +22,12 @@ public class CityMap {
 			}
 		}
 	}
-
+	
+	public ArrayList<City> getMyCities() {
+		return myCities;
+	}
+	
+	public HashMap<Pair<City, City>, Double> getMyGraph() {
+		return myGraph;
+	}
 }
