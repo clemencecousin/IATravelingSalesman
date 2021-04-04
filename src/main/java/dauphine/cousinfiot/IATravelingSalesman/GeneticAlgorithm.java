@@ -1,8 +1,6 @@
 package dauphine.cousinfiot.IATravelingSalesman;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -20,37 +18,89 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 		}
 	}
 
-	private static double totalDistance(Map<Pair<City, City>, Double> map) {
-		Collection<Double> listOccurence = map.values();
-		double d = 0;
-		for (Double dist : listOccurence) {
-			d = d + dist;
-		}
-
-		return d;
-	}
-
 	private void makeCouple() {
 		couple = new ArrayList<>();
 		RandomSelector random = new RandomSelector();
-		ArrayList<HashMap<Pair<City, City>, Double>> explored;
+		ArrayList<Travel> explored = new ArrayList<>();
 
 		for (Travel pop : population) {
 			random.add(pop.numberIssues());
 		}
+
+		Travel mother = null;
+		Travel father = null;
+
+		while (explored.size() < populationSize) {
+			mother = population.get(random.randomChoice());
+			father = population.get(random.randomChoice());
+			if ((!mother.equals(father)) & (explored.indexOf(mother) == -1) & (explored.indexOf(father) == -1)) {
+				explored.add(mother);
+				explored.add(father);
+				couple.add(new Pair(mother, father));
+			}
+		}
 	}
 
 	private void crossover() {
+		System.out.println("size = " + couple.size());
+		ArrayList<Travel> newPopulation = new ArrayList<>();
+		RandomSelector random = new RandomSelector();
+		random.add(1);
+		random.add(1);
 
+		for (Pair<Travel, Travel> c : couple) {
+			Travel child1 = new Travel();
+			Travel child2 = new Travel();
+			
+			ArrayList<Pair<City, City>> citiesLeft = c.getLeft().getPairCities();
+			ArrayList<Pair<City, City>> citiesRight = c.getRight().getPairCities();
+			System.out.println("Pair = " + c.getLeft().getTravel() + " ; " + c.getRight().getTravel());
+			
+//			System.out.println(citiesLeft);
+//			System.out.println(citiesRight);
+
+			for (int i = 0; i < 10; i++) {
+				int newRandom = random.randomChoice();
+
+				if (newRandom == 0) {
+					child1.add(citiesLeft.get(i), c.getLeft().getTravel().get(citiesLeft.get(i)));
+					child2.add(citiesRight.get(i), c.getRight().getTravel().get(citiesRight.get(i)));
+				} else {
+					child1.add(citiesRight.get(i), c.getRight().getTravel().get(citiesRight.get(i)));
+					child2.add(citiesLeft.get(i), c.getLeft().getTravel().get(citiesLeft.get(i)));
+				}
+			}
+			
+			System.out.println(child1.getTravel());
+			System.out.println(child2.getTravel());
+			newPopulation.add(child1);
+			newPopulation.add(child2);
+		}
+
+		population = newPopulation;
 	}
 
-	@Override
-	public ArrayList<City> solve() {
-//		while (true) {
-//			
-////			if (numberIssues(null) == 0) break;
-//		}
-		return null;
+	public Travel solve1() {
+		Travel solution = null;
+		Boolean loop = true;
+		int counter = 0;
+		while (loop) {
+			counter++;
+			System.out.println(counter + "---------------------------------------");
+			
+			makeCouple();
+			crossover();
+
+			for (Travel pop : population) {
+				solution = pop;
+				
+				System.out.println(pop.numberIssues());
+				
+				if (pop.numberIssues() == 0)
+					loop = false;
+			}
+		}
+		return solution;
 	}
 
 	public void setCities(CityMap cities) {
@@ -60,17 +110,14 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 	public static void main(String[] args) {
 		GeneticAlgorithm g = new GeneticAlgorithm();
 		g.setCities(new CityMap(10, 500));
-		g.generatePopulation(5);
-		for (Travel t : g.population) {
-			Iterator it = t.getTravel().entrySet().iterator();
-			while (it.hasNext()) {
-				Map.Entry pair = (Map.Entry) it.next();
-				System.out.println(pair.getKey() + " = " + pair.getValue());
-			}
-			System.out.println("------------------------------------------");
-			System.out.println(t.numberIssues());
-			System.out.println(totalDistance(t.getTravel()));
-			System.out.println("------------------------------------------");
-		}
+		g.generatePopulation(6);
+		System.out.println(g.solve1());
+//		g.makeCouple();
+//		System.out.println("end");
+	}
+
+	@Override
+	public ArrayList<City> solve() {
+		return null;
 	}
 }

@@ -10,10 +10,19 @@ import java.util.Random;
 public class Travel {
 	Map<Pair<City, City>, Double> travel;
 	CityMap cities;
+	ArrayList<Pair<City, City>> pairCities;
 
 	public Travel(CityMap cities) {
 		this.cities = cities;
 		generateTravel();
+	}
+	
+	public Travel() {
+		this.travel = new LinkedHashMap<>();
+	}
+	
+	public void add(Pair<City, City> p, double d) {
+		travel.put(p, d);
 	}
 
 	private void generateTravel() {
@@ -21,7 +30,7 @@ public class Travel {
 		int mapSize = cities.getMyCities().size();
 
 		Map<Pair<City, City>, Double> tempMap = new LinkedHashMap<>();
-		while (tempMap.size() < mapSize - 1) {
+		while (tempMap.size() < mapSize) {
 			int random = new Random().nextInt(cities.getMyGraph().size());
 			Pair<City, City> pairTemp = pairList.get(random);
 			if (!tempMap.containsKey(pairTemp)) {
@@ -60,5 +69,24 @@ public class Travel {
 		}
 
 		return counter;
+	}
+	
+	public double totalDistance() {
+		Collection<Double> listOccurence = travel.values();
+		double d = 0;
+		for (Double dist : listOccurence) {
+			d = d + dist;
+		}
+
+		return d;
+	}
+	
+	private void computePairCities() {
+		pairCities = new ArrayList<>(travel.keySet());
+	}
+	
+	public ArrayList<Pair<City, City>> getPairCities() {
+		computePairCities();
+		return pairCities;
 	}
 }
