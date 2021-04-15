@@ -18,7 +18,9 @@ public class Pair<T,K> {
 	}
 	
 	public boolean equals(Pair<T, K> p) {
-		return ((this.city1.equals(p.getLeft()) || this.city1.equals(p.getRight())) && (this.city2.equals(p.getLeft()) || this.city2.equals(p.getRight())));
+//		return ((this.city1.equals(p.getLeft()) || this.city1.equals(p.getRight())) && (this.city2.equals(p.getLeft()) || this.city2.equals(p.getRight())));
+		return ((this.city1.equals(p.getLeft()) && this.city2.equals(p.getRight())) ||
+				(this.city2.equals(p.getLeft()) && this.city1.equals(p.getRight())));
 	}
 	
 	@Override

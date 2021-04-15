@@ -10,14 +10,14 @@ import java.util.ArrayList;
  *
  */
 public class RandomSelector {
-	private ArrayList<Float> proba;
+	private ArrayList<Double> proba;
 	private float somme = 0;
 	
 	/**
 	 * This constructor creates a RandomSelector.
 	 */
 	public RandomSelector() {
-		this.proba = new ArrayList<Float>();
+		this.proba = new ArrayList<>();
 	}
 	
 	/**
@@ -27,8 +27,8 @@ public class RandomSelector {
 	 * @param i, the fitness of the individual to be added to 
 	 * the  RandomSelector.
 	 */
-	public void add(int i) {
-		this.proba.add(Float.valueOf(i));
+	public void add(double i) {
+		this.proba.add(i);
 		this.somme += i;
 	}
 	
