@@ -1,4 +1,4 @@
-package dauphine.cousinfiot.IATravelingSalesman;
+package dauphine.cousinfiot.IATravelingSalesman.algorithm;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,12 +9,28 @@ import java.util.Random;
 import java.util.Set;
 import java.util.SortedSet;
 
+import dauphine.cousinfiot.IATravelingSalesman.architecture.City;
+import dauphine.cousinfiot.IATravelingSalesman.architecture.CityMap;
+import dauphine.cousinfiot.IATravelingSalesman.architecture.Pair;
+import dauphine.cousinfiot.IATravelingSalesman.architecture.Population;
+import dauphine.cousinfiot.IATravelingSalesman.architecture.Travel;
+
+/**
+ * Using the genetic algorithm to solve the traveling salesman problem.
+ *
+ */
 public class GeneticAlgorithm implements TravelingSalesmanSolve {
 	CityMap cities;
 	Population population = new Population();
 	int populationSize;
 	ArrayList<Pair<Travel, Travel>> couple;
 
+	/**
+	 * Constructor which generates a population of random individuals.
+	 * 
+	 * @param popSize number of individuals in the population, must be an even
+	 *                integer
+	 */
 	private void generatePopulation(int popSize) {
 		this.populationSize = popSize;
 
@@ -24,6 +40,11 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 		}
 	}
 
+	/**
+	 * Generates couple in the population randomly but where the probability of
+	 * picking an element is proportional to its value (here its the distance of the
+	 * travel).
+	 */
 	private void makeCouple() {
 		couple = new ArrayList<>();
 		RandomSelector random = new RandomSelector();
@@ -47,6 +68,15 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 		}
 	}
 
+	/**
+	 * Mix the order of the city of the parents to make two new children. First half
+	 * of the child1 is composed of the first half of the mother, the second half is
+	 * composed of the missing cities in the same order they appear in the father.
+	 * Same principal for the second child but with opposite place for mother and
+	 * father. (Order Crossover Operator)
+	 * 
+	 * @return a new population
+	 */
 	private Population crossover() {
 		System.out.println("size = " + couple.size());
 		Population newPopulation = new Population();
@@ -79,6 +109,15 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 		return newPopulation;
 	}
 
+	/**
+	 * Solve the traveling salesman problem with genetic algorithm method.
+	 * 
+	 * @param mutationRate percentage of random mutation in the population
+	 * @param elitistRate  percentage of the best individual which are kept from a
+	 *                     generation to another
+	 * @return the travel with the minimum totalDistance(), must be the optimal
+	 *         journey to solve the problem.
+	 */
 	public Travel solveTravel(double mutationRate, double elitistRate) {
 		Travel solution = null;
 		double minDist = Double.POSITIVE_INFINITY;
@@ -90,14 +129,14 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 
 			makeCouple();
 			Population crossover = crossover();
-			
+
 			for (int j = 0; j < crossover.getPopulationSize(); j++) {
 				if (Math.random() < mutationRate) {
 					crossover.get(j).setCities(cities);
 					crossover.get(j).mutate();
 				}
 			}
-			
+
 			for (int j = 0; j < elitistRate * populationSize; j++) {
 				System.out.println(j);
 				System.out.println(population.getSortPop());
@@ -122,7 +161,7 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 		System.out.println("***" + solution.totalDistance());
 		return solution;
 	}
-	
+
 	@Override
 	public ArrayList<City> solve() {
 		Travel t = solveTravel(0.1, 0.4);

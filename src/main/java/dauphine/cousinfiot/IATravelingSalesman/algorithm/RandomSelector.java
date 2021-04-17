@@ -1,4 +1,4 @@
-package dauphine.cousinfiot.IATravelingSalesman;
+package dauphine.cousinfiot.IATravelingSalesman.algorithm;
 import java.util.ArrayList;
 
 /**
