@@ -30,13 +30,18 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 		generatePopulation(cities.getMyCities().size());
 	}
 
+	public GeneticAlgorithm(CityMap cities) {
+		setCities(cities);
+		generatePopulation(cities.getMyCities().size());
+	}
+	
 	/**
 	 * Constructor which generates a population of random individuals.
 	 * 
 	 * @param popSize number of individuals in the population, must be an even
 	 *                integer
 	 */
-	private void generatePopulation(int popSize) {
+	void generatePopulation(int popSize) {
 		this.populationSize = popSize;
 
 		for (int i = 0; i < popSize; i++) {
