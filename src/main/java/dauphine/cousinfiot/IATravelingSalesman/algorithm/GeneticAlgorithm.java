@@ -24,6 +24,11 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 	Population population = new Population();
 	int populationSize;
 	ArrayList<Pair<Travel, Travel>> couple;
+	
+	public GeneticAlgorithm(CityMap cities) {
+		setCities(cities);
+		generatePopulation(cities.getMyCities().size());
+	}
 
 	/**
 	 * Constructor which generates a population of random individuals.
@@ -173,9 +178,7 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 	}
 
 	public static void main(String[] args) {
-		GeneticAlgorithm g = new GeneticAlgorithm();
-		g.setCities(new CityMap(6, 500));
-		g.generatePopulation(6);
+		GeneticAlgorithm g = new GeneticAlgorithm(new CityMap(6, 500));
 
 		ArrayList<City> sol = g.solve();
 		System.out.println(g.cities.getMyGraph());
