@@ -4,11 +4,16 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.text.FieldPosition;
+import java.text.NumberFormat;
+import java.text.ParsePosition;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
@@ -22,6 +27,7 @@ import dauphine.cousinfiot.IATravelingSalesman.architecture.CityMap;
  */
 public class TravelGUI {
 	private CityMap cities;
+//	private JFormattedTextField numberCities;
 
 	public TravelGUI(CityMap cities) {
 		this.cities = cities;
@@ -59,6 +65,8 @@ public class TravelGUI {
 		JLabel title = new JLabel("Traveling Salesman");
 		titlePanel.add(title);
 		settingsPanel.add(titlePanel);
+		JButton newParamButton = new JButton("Set new parameters");
+		titlePanel.add(newParamButton);
 
 		JPanel GeneticPanel = new JPanel();
 		GeneticPanel.setBackground(Color.WHITE);
@@ -69,14 +77,14 @@ public class TravelGUI {
 		GeneticPanel.add(geneticAlgoButton);
 		settingsPanel.add(GeneticPanel);
 
-		JPanel undoPanel = new JPanel();
-		undoPanel.setBackground(Color.WHITE);
-		JLabel printUndo = new JLabel("Undo last move :");
-		printUndo.setBorder(BorderFactory.createEmptyBorder(0, 40, 0, 40));
-		JButton undoButton = new JButton("Undo");
-		undoPanel.add(printUndo);
-		undoPanel.add(undoButton);
-		settingsPanel.add(undoPanel);
+		JPanel annealingPanel = new JPanel();
+		annealingPanel.setBackground(Color.WHITE);
+		JLabel printAnnealing = new JLabel("Run simulated annealing algorithm :");
+		printAnnealing.setBorder(BorderFactory.createEmptyBorder(0, 40, 0, 40));
+		JButton annealingButton = new JButton("Simulated annealing");
+		annealingPanel.add(printAnnealing);
+		annealingPanel.add(annealingButton);
+		settingsPanel.add(annealingPanel);
 
 		JPanel autoFinishPanel = new JPanel();
 		autoFinishPanel.setBackground(Color.WHITE);
@@ -94,15 +102,19 @@ public class TravelGUI {
 
 		frame.add(myGrid);
 		frame.add(settingsPanel);
+		
+		System.out.println(frame);
 
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
 
-		new GeneticButtonController(geneticAlgoButton, cities, myGrid.getGraphics().create());
+		new newParamButtonController(newParamButton);
+		new GeneticButtonController(geneticAlgoButton, cities, myGrid.getParent().getGraphics(), myGrid.getParent());
+		new AnnealingButtonController(annealingButton, cities, myGrid.getParent().getGraphics(), myGrid.getParent());
 	}
 	
 	public static void main(String[] args) {
-		new TravelGUI(new CityMap(6, 400));
+		new TravelGUI(new CityMap(6, 600));
 	}
 }

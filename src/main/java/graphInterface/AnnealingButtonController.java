@@ -9,10 +9,10 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import dauphine.cousinfiot.IATravelingSalesman.algorithm.GeneticAlgorithm;
+import dauphine.cousinfiot.IATravelingSalesman.algorithm.SimulatedAnnealing;
 import dauphine.cousinfiot.IATravelingSalesman.architecture.City;
 import dauphine.cousinfiot.IATravelingSalesman.architecture.CityMap;
 
@@ -21,7 +21,7 @@ import dauphine.cousinfiot.IATravelingSalesman.architecture.CityMap;
  * clicked.
  *
  */
-public class GeneticButtonController implements ActionListener {
+public class AnnealingButtonController implements ActionListener {
 	private CityMap cities;
 	private Graphics g;
 	private Container container;
@@ -32,7 +32,7 @@ public class GeneticButtonController implements ActionListener {
 	 * 
 	 * @param button a {@link javax.swing.JButton JButton} which perform actions
 	 */
-	public GeneticButtonController(JButton button, CityMap cities, Graphics g, Container container) {
+	public AnnealingButtonController(JButton button, CityMap cities, Graphics g, Container container) {
 		button.addActionListener(this);
 		this.cities = cities;
 		this.g = g;
@@ -46,9 +46,11 @@ public class GeneticButtonController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		container.update(g);
-		GeneticAlgorithm gen = new GeneticAlgorithm(cities);
+		SimulatedAnnealing anneal = new SimulatedAnnealing(cities);
 
-		ArrayList<City> sol = gen.solve();
+		ArrayList<City> sol = anneal.solve();
+		System.out.println(cities.getMyCities());
+		System.out.println(sol);
 		for (int i = 0; i < cities.getMyCities().size() - 1; i++) {
 			g.drawLine(sol.get(i).getX(), sol.get(i).getY(), sol.get(i + 1).getX(), sol.get(i + 1).getY());
 		}
@@ -59,7 +61,7 @@ public class GeneticButtonController implements ActionListener {
 		g.setColor(Color.white);
 		g.fillRect(0, 720, 300, 25);
 		g.setColor(Color.black);
-		g.drawString("Total distance = " + Math.round(gen.getSolution().totalDistance())
-				+ " --- Number of iterations = " + gen.getIteration(), 5, 735);
+		g.drawString("Total distance = " + Math.round(anneal.getSolution().totalDistance())
+				+ " --- Number of iterations = " + anneal.getIteration(), 5, 735);
 	}
 }

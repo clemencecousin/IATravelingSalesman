@@ -14,23 +14,24 @@ import dauphine.cousinfiot.IATravelingSalesman.architecture.Travel;
  */
 public class SimulatedAnnealing implements TravelingSalesmanSolve {
 	private Travel solution;
-	private double ditanceOfSolution;
 	private CityMap cities;
+	private int iteration = 0;
 
 	public SimulatedAnnealing(CityMap cities) {
 		this.cities = cities;
 		this.solution = new Travel(cities);
-		this.ditanceOfSolution = solution.totalDistance();
 	}
 
 	@Override
 	public ArrayList<City> solve() {
-		Travel tempSolution = solution.copy();
+		iteration = 0;
 		double minDist = solution.totalDistance();
 		Boolean loop = true;
 		int counter = 0;
 
 		while (loop) {
+			iteration++;
+			Travel tempSolution = solution.copy();
 			counter++;
 			int method = new Random().nextInt(2);
 
@@ -70,10 +71,18 @@ public class SimulatedAnnealing implements TravelingSalesmanSolve {
 				counter = 0;
 			}
 
-			if (counter == 100)
+			if (counter == 1000)
 				loop = false;
 		}
 		return solution.getCitiesList();
+	}
+	
+	public Travel getSolution() {
+		return solution;
+	}
+	
+	public int getIteration() {
+		return iteration;
 	}
 
 	public static void main(String[] args) {
@@ -81,7 +90,7 @@ public class SimulatedAnnealing implements TravelingSalesmanSolve {
 		SimulatedAnnealing sa = new SimulatedAnnealing(cities);
 		GeneticAlgorithm ga = new GeneticAlgorithm(cities);
 
-		System.out.println(ga.solve());
-		System.out.println(sa.solve());
+		System.out.println("---" + ga.solve());
+		System.out.println("---" + sa.solve());
 	}
 }

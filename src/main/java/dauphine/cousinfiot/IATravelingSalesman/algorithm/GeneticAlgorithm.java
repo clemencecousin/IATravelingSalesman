@@ -24,11 +24,8 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 	Population population = new Population();
 	int populationSize;
 	ArrayList<Pair<Travel, Travel>> couple;
-	
-	public GeneticAlgorithm(CityMap cities) {
-		setCities(cities);
-		generatePopulation(cities.getMyCities().size());
-	}
+	Travel solution = null;
+	int iteration = 0;
 
 	public GeneticAlgorithm(CityMap cities) {
 		setCities(cities);
@@ -88,7 +85,7 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 	 * @return a new population
 	 */
 	private Population crossover() {
-		System.out.println("size = " + couple.size());
+//		System.out.println("size = " + couple.size());
 		Population newPopulation = new Population();
 
 		for (Pair<Travel, Travel> c : couple) {
@@ -133,9 +130,11 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 		double minDist = Double.POSITIVE_INFINITY;
 		Boolean loop = true;
 		int counter = 0;
+		iteration = 0;
 		while (loop) {
+			iteration++;
 			counter++;
-			System.out.println(counter + "---------------------------------------");
+//			System.out.println(counter + "---------------------------------------");
 
 			makeCouple();
 			Population crossover = crossover();
@@ -148,27 +147,28 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 			}
 
 			for (int j = 0; j < elitistRate * populationSize; j++) {
-				System.out.println(j);
-				System.out.println(population.getSortPop());
+//				System.out.println(j);
+//				System.out.println(population.getSortPop());
 				crossover.replace(population.getSortPop().get(j));
 			}
 			population = crossover;
 
 			for (Travel pop : population.getPopulation()) {
-				System.out.println(pop.totalDistance());
+//				System.out.println(pop.totalDistance());
 				if (pop.totalDistance() < minDist) {
 					minDist = pop.totalDistance();
 					solution = pop;
 					counter = 0;
 				}
 
-				if (counter == 100)
+				if (counter == 1000)
 					loop = false;
 			}
 		}
 
-		System.out.println("***" + solution.getCitiesList());
-		System.out.println("***" + solution.totalDistance());
+//		System.out.println("***" + solution.getCitiesList());
+//		System.out.println("***" + solution.totalDistance());
+		this.solution = solution;
 		return solution;
 	}
 
@@ -180,6 +180,14 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 
 	public void setCities(CityMap cities) {
 		this.cities = cities;
+	}
+	
+	public Travel getSolution() {
+		return solution;
+	}
+	
+	public int getIteration() {
+		return iteration;
 	}
 
 	public static void main(String[] args) {
