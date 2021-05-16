@@ -134,9 +134,13 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 		while (loop) {
 			iteration++;
 			counter++;
-//			System.out.println(counter + "---------------------------------------");
+			
+			System.out.println(iteration + "---------------------------------------");
+			System.out.println(counter);
+			System.out.println(populationSize);
 
 			makeCouple();
+			System.out.println("couple ok");
 			Population crossover = crossover();
 
 			for (int j = 0; j < crossover.getPopulationSize(); j++) {
@@ -182,10 +186,12 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 		this.cities = cities;
 	}
 	
+	@Override
 	public Travel getSolution() {
 		return solution;
 	}
 	
+	@Override
 	public int getIteration() {
 		return iteration;
 	}

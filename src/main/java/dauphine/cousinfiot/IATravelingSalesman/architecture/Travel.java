@@ -114,4 +114,15 @@ public class Travel {
 		
 		return newTravel;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		Travel o = (Travel) obj;
+		return citiesList.equals(o.getCitiesList());
+	}
+	
+	@Override
+	public int hashCode() {
+		return citiesList.hashCode();
+	}
 }

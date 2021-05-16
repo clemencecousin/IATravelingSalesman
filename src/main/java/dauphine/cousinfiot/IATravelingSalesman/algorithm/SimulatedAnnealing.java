@@ -77,10 +77,12 @@ public class SimulatedAnnealing implements TravelingSalesmanSolve {
 		return solution.getCitiesList();
 	}
 	
+	@Override
 	public Travel getSolution() {
 		return solution;
 	}
 	
+	@Override
 	public int getIteration() {
 		return iteration;
 	}

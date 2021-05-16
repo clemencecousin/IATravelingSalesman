@@ -86,13 +86,13 @@ public class TravelGUI {
 		annealingPanel.add(annealingButton);
 		settingsPanel.add(annealingPanel);
 
-		JPanel autoFinishPanel = new JPanel();
-		autoFinishPanel.setBackground(Color.WHITE);
-		JLabel printAutoFinish = new JLabel("Finish the game randomly :");
-		JButton autoFinishButton = new JButton("Auto finish");
-		autoFinishPanel.add(printAutoFinish);
-		autoFinishPanel.add(autoFinishButton);
-		settingsPanel.add(autoFinishPanel);
+		JPanel beamSearchPanel = new JPanel();
+		beamSearchPanel.setBackground(Color.WHITE);
+		JLabel beamSearch = new JLabel("Run local beam search algorithm :");
+		JButton beamSearchButton = new JButton("Local beam search");
+		beamSearchPanel.add(beamSearch);
+		beamSearchPanel.add(beamSearchButton);
+		settingsPanel.add(beamSearchPanel);
 
 		constraints.gridx = 1;
 		constraints.gridy = 0;
@@ -112,6 +112,7 @@ public class TravelGUI {
 		new newParamButtonController(newParamButton);
 		new GeneticButtonController(geneticAlgoButton, cities, myGrid.getParent().getGraphics(), myGrid.getParent());
 		new AnnealingButtonController(annealingButton, cities, myGrid.getParent().getGraphics(), myGrid.getParent());
+		new BeamButtonController(beamSearchButton, cities, myGrid.getParent().getGraphics(), myGrid.getParent());
 	}
 	
 	public static void main(String[] args) {
