@@ -1,11 +1,7 @@
 package dauphine.cousinfiot.IATravelingSalesman.architecture;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Random;
 
 /**
@@ -92,37 +88,42 @@ public class Travel {
 	public void setCities(CityMap cities) {
 		this.cities = cities;
 	}
-	
 
 	/**
 	 * The cities in positions c1 and c2 swap.
+	 * 
 	 * @param c1 City
 	 * @param c2 City
 	 */
 	public void swap(int c1, int c2) {
 		Collections.swap(citiesList, c1, c2);
 	}
-	
+
 	public int size() {
 		return citiesList.size();
 	}
-	
+
 	public Travel copy() {
 		Travel newTravel = new Travel();
 		newTravel.cities = this.cities;
 		newTravel.citiesList = new ArrayList<>(this.citiesList);
-		
+
 		return newTravel;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		Travel o = (Travel) obj;
 		return citiesList.equals(o.getCitiesList());
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return citiesList.hashCode();
+	}
+
+	@Override
+	public String toString() {
+		return citiesList.toString();
 	}
 }

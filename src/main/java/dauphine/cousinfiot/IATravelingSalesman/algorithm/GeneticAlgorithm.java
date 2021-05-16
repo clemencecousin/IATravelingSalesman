@@ -1,13 +1,6 @@
 package dauphine.cousinfiot.IATravelingSalesman.algorithm;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.SortedSet;
 
 import dauphine.cousinfiot.IATravelingSalesman.architecture.City;
 import dauphine.cousinfiot.IATravelingSalesman.architecture.CityMap;
@@ -31,7 +24,7 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 		setCities(cities);
 		generatePopulation(cities.getMyCities().size());
 	}
-	
+
 	/**
 	 * Constructor which generates a population of random individuals.
 	 * 
@@ -55,7 +48,7 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 	private void makeCouple() {
 		couple = new ArrayList<>();
 		RandomSelector random = new RandomSelector();
-		ArrayList<Travel> explored = new ArrayList<>();
+		ArrayList<Integer> explored = new ArrayList<>();
 
 		for (Travel pop : population.getPopulation()) {
 			random.add(pop.totalDistance());
@@ -64,12 +57,20 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 		Travel mother = null;
 		Travel father = null;
 
-		while (explored.size() < populationSize) {
-			mother = population.getPopulation().get(random.randomChoice());
-			father = population.getPopulation().get(random.randomChoice());
-			if ((!mother.equals(father)) & (explored.indexOf(mother) == -1) & (explored.indexOf(father) == -1)) {
-				explored.add(mother);
-				explored.add(father);
+		while (couple.size() < populationSize / 2) {
+			int rm = random.randomChoice();
+			int rf = random.randomChoice();
+
+			while (rm == rf) {
+				rf = random.randomChoice();
+			}
+
+			mother = population.getPopulation().get(rm);
+			father = population.getPopulation().get(rf);
+
+			if (!(explored.contains(rm)) || !(explored.contains(rf))) {
+				explored.add(rm);
+				explored.add(rf);
 				couple.add(new Pair(mother, father));
 			}
 		}
@@ -85,7 +86,6 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 	 * @return a new population
 	 */
 	private Population crossover() {
-//		System.out.println("size = " + couple.size());
 		Population newPopulation = new Population();
 
 		for (Pair<Travel, Travel> c : couple) {
@@ -134,13 +134,8 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 		while (loop) {
 			iteration++;
 			counter++;
-			
-			System.out.println(iteration + "---------------------------------------");
-			System.out.println(counter);
-			System.out.println(populationSize);
 
 			makeCouple();
-			System.out.println("couple ok");
 			Population crossover = crossover();
 
 			for (int j = 0; j < crossover.getPopulationSize(); j++) {
@@ -151,14 +146,12 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 			}
 
 			for (int j = 0; j < elitistRate * populationSize; j++) {
-//				System.out.println(j);
-//				System.out.println(population.getSortPop());
 				crossover.replace(population.getSortPop().get(j));
 			}
+
 			population = crossover;
 
 			for (Travel pop : population.getPopulation()) {
-//				System.out.println(pop.totalDistance());
 				if (pop.totalDistance() < minDist) {
 					minDist = pop.totalDistance();
 					solution = pop;
@@ -170,8 +163,6 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 			}
 		}
 
-//		System.out.println("***" + solution.getCitiesList());
-//		System.out.println("***" + solution.totalDistance());
 		this.solution = solution;
 		return solution;
 	}
@@ -185,12 +176,12 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 	public void setCities(CityMap cities) {
 		this.cities = cities;
 	}
-	
+
 	@Override
 	public Travel getSolution() {
 		return solution;
 	}
-	
+
 	@Override
 	public int getIteration() {
 		return iteration;

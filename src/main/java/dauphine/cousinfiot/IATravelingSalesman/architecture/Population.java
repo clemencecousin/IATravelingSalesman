@@ -38,6 +38,7 @@ public class Population {
 
 	/**
 	 * Replace the travel with the biggest totalDistance().
+	 * 
 	 * @param t the new travel which replaces the worst individual
 	 */
 	public void replace(Travel t) {
@@ -47,6 +48,7 @@ public class Population {
 
 	/**
 	 * Add a new travel to the population.
+	 * 
 	 * @param t the travel to add
 	 */
 	public void add(Travel t) {
@@ -68,6 +70,7 @@ public class Population {
 
 	/**
 	 * Get a travel at a specific position in the population.
+	 * 
 	 * @param index
 	 * @return
 	 */
