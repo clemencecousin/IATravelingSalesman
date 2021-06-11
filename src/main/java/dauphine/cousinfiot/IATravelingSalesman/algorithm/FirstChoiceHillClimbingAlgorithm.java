@@ -6,10 +6,9 @@ import dauphine.cousinfiot.IATravelingSalesman.architecture.City;
 import dauphine.cousinfiot.IATravelingSalesman.architecture.CityMap;
 import dauphine.cousinfiot.IATravelingSalesman.architecture.Travel;
 
-public class HillClimbingAlgorithm implements TravelingSalesmanSolve {
-	
+public class FirstChoiceHillClimbingAlgorithm extends HillClimbingAlgorithm implements TravelingSalesmanSolve {
 	private CityMap solution;
-	
+
 	private ArrayList<CityMap> getNeighbors() {
 		ArrayList<CityMap> neighbors = new ArrayList<>();
 		for(int i = 0; i < this.solution.nbCities() ; i++) {
@@ -31,45 +30,50 @@ public class HillClimbingAlgorithm implements TravelingSalesmanSolve {
 		}
 		return neighbors;		
 	}
-	
-	private static CityMap getBestNeighbors(ArrayList<CityMap> neighbors) {
-		double bestRoute = neighbors.get(0).totalDistance();
-		CityMap bestNeighbor = neighbors.get(0);
+
+	private ArrayList<CityMap> betterThanCurrentState(ArrayList<CityMap> neighbors){
+		ArrayList<CityMap> betterState = new ArrayList<>();
 		for(CityMap c : neighbors) {
-			double currentRoute = c.totalDistance();
-			if(currentRoute < bestRoute) {
-				bestRoute = currentRoute;
-				bestNeighbor = c;
+			if(c.totalDistance() < this.solution.totalDistance()) {
+				betterState.add(c);
 			}
 		}
-		return bestNeighbor;
+		return betterState;
 	}
 
 	@Override
-	public ArrayList<City> solve() {
+	public ArrayList<City> solve(){
 		Travel init = new Travel(this.solution);
 		this.solution = new CityMap(init.getCitiesList(), CityMap.constructGraph(init.getCitiesList()));
 		double currentRoute = this.solution.totalDistance();
-		CityMap bestNeighbor = getBestNeighbors(this.getNeighbors());
-		while(bestNeighbor.totalDistance() < currentRoute) {
-			this.solution = bestNeighbor;
+		ArrayList<CityMap> n = this.betterThanCurrentState(this.getNeighbors());
+		if(n.isEmpty()) {
+			return this.solution.getMyCities();
+		}
+		CityMap neighbor = n.get(0);
+		while(neighbor.totalDistance() < currentRoute) {
+			this.solution = neighbor;
 			currentRoute = this.solution.totalDistance();
-			bestNeighbor = getBestNeighbors(this.getNeighbors());
+			n.clear();
+			n = this.getNeighbors();
+			if(n.isEmpty()) {
+				return this.solution.getMyCities();
+			}
+			neighbor = n.get(0);
 		}
 		return this.solution.getMyCities();		
 	}
-	
+
+	@Override
 	public void setCities(CityMap cities) {
 		this.solution = cities;
 	}
-	
-	public static void main(String[] args) {
-		HillClimbingAlgorithm g = new HillClimbingAlgorithm();
-		g.setCities(new CityMap(6, 500));
 
+	public static void main(String[] args) {
+		FirstChoiceHillClimbingAlgorithm g = new FirstChoiceHillClimbingAlgorithm();
+		g.setCities(new CityMap(6, 500));
 		g.solve();
 		System.out.println(g.solution.totalDistance());
 		System.out.println(g.solution.getMyGraph());
 	}
-
 }

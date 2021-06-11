@@ -27,9 +27,9 @@ public class Population {
 
 			@Override
 			public int compare(Travel t1, Travel t2) {
-				if (t1.totalDistance() < t2.totalDistance())
+				if (t1.getCities().totalDistance() < t2.getCities().totalDistance())
 					return -1;
-				if (t1.totalDistance() > t2.totalDistance())
+				if (t1.getCities().totalDistance() > t2.getCities().totalDistance())
 					return 1;
 				return 0;
 			}
