@@ -51,7 +51,7 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 		ArrayList<Travel> explored = new ArrayList<>();
 
 		for (Travel pop : population.getPopulation()) {
-			random.add(pop.totalDistance());
+			random.add(pop.getCities().totalDistance());
 		}
 
 		Travel mother = null;
@@ -145,9 +145,9 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 			population = crossover;
 
 			for (Travel pop : population.getPopulation()) {
-				System.out.println(pop.totalDistance());
-				if (pop.totalDistance() < minDist) {
-					minDist = pop.totalDistance();
+				System.out.println(pop.getCities().totalDistance());
+				if (pop.getCities().totalDistance() < minDist) {
+					minDist = pop.getCities().totalDistance();
 					solution = pop;
 					counter = 0;
 				}
@@ -158,7 +158,7 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 		}
 
 		System.out.println("***" + solution.getCitiesList());
-		System.out.println("***" + solution.totalDistance());
+		System.out.println("***" + solution.getCities().totalDistance());
 		return solution;
 	}
 
