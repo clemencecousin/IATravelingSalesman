@@ -9,6 +9,7 @@ import dauphine.cousinfiot.IATravelingSalesman.architecture.Travel;
 public class HillClimbingAlgorithm implements TravelingSalesmanSolve {
 	
 	private CityMap solution;
+	private int ite;
 	
 	private ArrayList<CityMap> getNeighbors() {
 		ArrayList<CityMap> neighbors = new ArrayList<>();
@@ -51,7 +52,9 @@ public class HillClimbingAlgorithm implements TravelingSalesmanSolve {
 		this.solution = new CityMap(init.getCitiesList(), CityMap.constructGraph(init.getCitiesList()));
 		double currentRoute = this.solution.totalDistance();
 		CityMap bestNeighbor = getBestNeighbors(this.getNeighbors());
+		ite = 0;
 		while(bestNeighbor.totalDistance() < currentRoute) {
+			ite++;
 			this.solution = bestNeighbor;
 			currentRoute = this.solution.totalDistance();
 			bestNeighbor = getBestNeighbors(this.getNeighbors());
@@ -65,14 +68,15 @@ public class HillClimbingAlgorithm implements TravelingSalesmanSolve {
 	
 	@Override
 	public Travel getSolution() {
-//		TODO();
-		return null;
+		Travel t = new Travel();
+		t.setCities(solution);
+		t.setCitiesList(solution.getMyCities());
+		return t;
 	}
 
 	@Override
 	public int getIteration() {
-//		TODO();
-		return 0;
+		return ite;
 	}
 	
 	public static void main(String[] args) {

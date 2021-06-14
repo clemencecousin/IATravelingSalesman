@@ -74,6 +74,10 @@ public class Travel {
 	public void setCities(CityMap cities) {
 		this.cities = cities;
 	}
+	
+	public void setCitiesList(ArrayList<City> citiesList) {
+		this.citiesList = citiesList;
+	}
 
 	/**
 	 * The cities in positions c1 and c2 swap.

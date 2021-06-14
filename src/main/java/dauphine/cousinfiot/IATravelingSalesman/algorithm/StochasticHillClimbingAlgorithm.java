@@ -8,6 +8,7 @@ import dauphine.cousinfiot.IATravelingSalesman.architecture.Travel;
 
 public class StochasticHillClimbingAlgorithm extends HillClimbingAlgorithm implements TravelingSalesmanSolve {
 	private CityMap solution;
+	private int ite;
 	
 	private ArrayList<CityMap> getNeighbors() {
 		ArrayList<CityMap> neighbors = new ArrayList<>();
@@ -52,7 +53,9 @@ public class StochasticHillClimbingAlgorithm extends HillClimbingAlgorithm imple
 		}
 		int nbRandom = (int)(Math.random() * ((n.size())));
 		CityMap neighbor = n.get(nbRandom);
+		ite = 0;
 		while(neighbor.totalDistance() < currentRoute) {
+			ite++;
 			this.solution = neighbor;
 			currentRoute = this.solution.totalDistance();
 			n.clear();
@@ -69,6 +72,19 @@ public class StochasticHillClimbingAlgorithm extends HillClimbingAlgorithm imple
 	@Override
 	public void setCities(CityMap cities) {
 		this.solution = cities;
+	}
+	
+	@Override
+	public Travel getSolution() {
+		Travel t = new Travel();
+		t.setCities(solution);
+		t.setCitiesList(solution.getMyCities());
+		return t;
+	}
+	
+	@Override
+	public int getIteration() {
+		return ite;
 	}
 	
 	public static void main(String[] args) {

@@ -1,6 +1,7 @@
 package dauphine.cousinfiot.IATravelingSalesman.graphInterface;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -30,7 +31,7 @@ public class TravelGUI {
 		GridBagLayout layout = new GridBagLayout();
 		GridBagConstraints constraints = new GridBagConstraints();
 
-		layout.columnWidths = new int[] { 800, 200 };
+		layout.columnWidths = new int[] { 900, 100 };
 		layout.rowHeights = new int[] { 800 };
 		layout.columnWeights = new double[] { 1, 1 };
 		layout.rowWeights = new double[] { 1 };
@@ -52,12 +53,15 @@ public class TravelGUI {
 		constraints.gridwidth = 1;
 		layout.setConstraints(myGrid, constraints);
 
-		JPanel settingsPanel = new JPanel(new GridLayout(4, 1));
+		JPanel settingsPanel = new JPanel(new GridLayout(7, 1));
 		settingsPanel.setVisible(true);
 
 		JPanel titlePanel = new JPanel();
 		titlePanel.setBackground(Color.WHITE);
-		JLabel title = new JLabel("Traveling Salesman");
+		JLabel title = new JLabel("Traveling Salesman App");
+		title.setSize(80, 20);
+		title.setForeground(Color.RED);
+		title.setFont(new Font("Calibri", Font.BOLD, 25));
 		titlePanel.add(title);
 		settingsPanel.add(titlePanel);
 		JButton newParamButton = new JButton("Set new parameters");
@@ -88,6 +92,30 @@ public class TravelGUI {
 		beamSearchPanel.add(beamSearch);
 		beamSearchPanel.add(beamSearchButton);
 		settingsPanel.add(beamSearchPanel);
+		
+		JPanel hillPanel = new JPanel();
+		hillPanel.setBackground(Color.WHITE);
+		JLabel hillSearch = new JLabel("Run hill climbing algorithm :");
+		JButton hillButton = new JButton("Hill Climbing");
+		hillPanel.add(hillSearch);
+		hillPanel.add(hillButton);
+		settingsPanel.add(hillPanel);
+		
+		JPanel firstChoicePanel = new JPanel();
+		firstChoicePanel.setBackground(Color.WHITE);
+		JLabel firstChoiceSearch = new JLabel("Run first choice hill climbing algorithm :");
+		JButton firstChoiceButton = new JButton("First Choice Hill Climbing");
+		firstChoicePanel.add(firstChoiceSearch);
+		firstChoicePanel.add(firstChoiceButton);
+		settingsPanel.add(firstChoicePanel);
+		
+		JPanel stochasticPanel = new JPanel();
+		stochasticPanel.setBackground(Color.WHITE);
+		JLabel stochasticSearch = new JLabel("Run stochastic hill climbing algorithm :");
+		JButton stochasticButton = new JButton("Stochastic Hill Climbing");
+		stochasticPanel.add(stochasticSearch);
+		stochasticPanel.add(stochasticButton);
+		settingsPanel.add(stochasticPanel);
 
 		constraints.gridx = 1;
 		constraints.gridy = 0;
@@ -107,6 +135,9 @@ public class TravelGUI {
 		new GeneticButtonController(geneticAlgoButton, cities, myGrid.getParent().getGraphics(), myGrid.getParent());
 		new AnnealingButtonController(annealingButton, cities, myGrid.getParent().getGraphics(), myGrid.getParent());
 		new BeamButtonController(beamSearchButton, cities, myGrid.getParent().getGraphics(), myGrid.getParent());
+		new HillButtonController(hillButton, cities, myGrid.getParent().getGraphics(), myGrid.getParent());
+		new FirstChoiceButtonController(firstChoiceButton, cities, myGrid.getParent().getGraphics(), myGrid.getParent());
+		new StochasticButtonController(stochasticButton, cities, myGrid.getParent().getGraphics(), myGrid.getParent());
 	}
 
 	public static void main(String[] args) {
