@@ -108,6 +108,11 @@ public class RandomRestartHillClimbingAlgorithm extends HillClimbingAlgorithm im
 		this.solution = cities;
 	}
 	
+	/**
+	 * Gets the solution found.
+	 *
+	 * @return the solution
+	 */
 	@Override
 	public Travel getSolution() {
 		Travel t = new Travel();
@@ -116,6 +121,11 @@ public class RandomRestartHillClimbingAlgorithm extends HillClimbingAlgorithm im
 		return t;
 	}
 	
+	/**
+	 * Gets the numbers of iterations needed to solve the problem.
+	 *
+	 * @return the iteration
+	 */
 	@Override
 	public int getIteration() {
 		return ite;
