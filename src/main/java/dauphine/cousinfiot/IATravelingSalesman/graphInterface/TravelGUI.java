@@ -1,19 +1,14 @@
-package graphInterface;
+package dauphine.cousinfiot.IATravelingSalesman.graphInterface;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.text.FieldPosition;
-import java.text.NumberFormat;
-import java.text.ParsePosition;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
@@ -31,7 +26,7 @@ public class TravelGUI {
 
 	public TravelGUI(CityMap cities) {
 		this.cities = cities;
-		
+
 		GridBagLayout layout = new GridBagLayout();
 		GridBagConstraints constraints = new GridBagConstraints();
 
@@ -102,19 +97,18 @@ public class TravelGUI {
 
 		frame.add(myGrid);
 		frame.add(settingsPanel);
-		
+
 		System.out.println(frame);
 
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		
 
 		new newParamButtonController(newParamButton);
 		new GeneticButtonController(geneticAlgoButton, cities, myGrid.getParent().getGraphics(), myGrid.getParent());
 		new AnnealingButtonController(annealingButton, cities, myGrid.getParent().getGraphics(), myGrid.getParent());
 		new BeamButtonController(beamSearchButton, cities, myGrid.getParent().getGraphics(), myGrid.getParent());
 	}
-	
+
 	public static void main(String[] args) {
 		new TravelGUI(new CityMap(6, 600));
 	}

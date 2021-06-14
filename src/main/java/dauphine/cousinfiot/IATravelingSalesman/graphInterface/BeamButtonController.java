@@ -1,4 +1,4 @@
-package graphInterface;
+package dauphine.cousinfiot.IATravelingSalesman.graphInterface;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -11,7 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 import dauphine.cousinfiot.IATravelingSalesman.algorithm.LocalBeamSearch;
-import dauphine.cousinfiot.IATravelingSalesman.algorithm.SimulatedAnnealing;
 import dauphine.cousinfiot.IATravelingSalesman.architecture.City;
 import dauphine.cousinfiot.IATravelingSalesman.architecture.CityMap;
 
@@ -30,7 +29,7 @@ public class BeamButtonController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String width = JOptionPane.showInputDialog("Width of Local beam search: ", 2);
-		
+
 		container.update(g);
 		LocalBeamSearch anneal = new LocalBeamSearch(cities, Integer.parseInt(width));
 

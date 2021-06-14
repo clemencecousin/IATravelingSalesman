@@ -1,15 +1,11 @@
-package graphInterface;
+package dauphine.cousinfiot.IATravelingSalesman.graphInterface;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import dauphine.cousinfiot.IATravelingSalesman.architecture.City;
 import dauphine.cousinfiot.IATravelingSalesman.architecture.CityMap;
-import dauphine.cousinfiot.IATravelingSalesman.architecture.Pair;
 
 /**
  * User Interface which only display the grid. Is called by GameGUI.
@@ -36,7 +32,7 @@ public class GridDisplay extends JPanel {
 	@Override
 	public void paint(Graphics g) {
 		for (City c : cities.getMyCities()) {
-			g.drawOval(c.getX()-2, c.getY()-2, 4, 4);
+			g.drawOval(c.getX() - 2, c.getY() - 2, 4, 4);
 			g.drawString(c.toString(), c.getX(), c.getY() + 15);
 		}
 

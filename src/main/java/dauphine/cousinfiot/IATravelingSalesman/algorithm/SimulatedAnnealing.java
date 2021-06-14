@@ -1,6 +1,5 @@
 package dauphine.cousinfiot.IATravelingSalesman.algorithm;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -45,7 +44,7 @@ public class SimulatedAnnealing implements TravelingSalesmanSolve {
 				while (p1 == newPosition) {
 					newPosition = new Random().nextInt(tempSolution.size());
 				}
-				
+
 				if (p1 < newPosition) {
 					tempSolution.getCitiesList().add(newPosition, tempSolution.getCitiesList().get(p1));
 					tempSolution.getCitiesList().remove(p1);
@@ -53,7 +52,7 @@ public class SimulatedAnnealing implements TravelingSalesmanSolve {
 					tempSolution.getCitiesList().add(newPosition, tempSolution.getCitiesList().get(p1));
 					tempSolution.getCitiesList().remove(p1 + 1);
 				}
-				
+
 				if (p2 < (newPosition + 1) % tempSolution.size()) {
 					tempSolution.getCitiesList().add((newPosition + 1) % tempSolution.size(),
 							tempSolution.getCitiesList().get(p2));
@@ -76,12 +75,12 @@ public class SimulatedAnnealing implements TravelingSalesmanSolve {
 		}
 		return solution.getCitiesList();
 	}
-	
+
 	@Override
 	public Travel getSolution() {
 		return solution;
 	}
-	
+
 	@Override
 	public int getIteration() {
 		return iteration;

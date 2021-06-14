@@ -1,17 +1,11 @@
-package graphInterface;
+package dauphine.cousinfiot.IATravelingSalesman.graphInterface;
 
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 
-import dauphine.cousinfiot.IATravelingSalesman.algorithm.GeneticAlgorithm;
-import dauphine.cousinfiot.IATravelingSalesman.architecture.City;
 import dauphine.cousinfiot.IATravelingSalesman.architecture.CityMap;
 
 /**
