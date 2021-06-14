@@ -7,9 +7,16 @@ import dauphine.cousinfiot.IATravelingSalesman.architecture.CityMap;
 import dauphine.cousinfiot.IATravelingSalesman.architecture.Travel;
 
 public class StochasticHillClimbingAlgorithm extends HillClimbingAlgorithm implements TravelingSalesmanSolve {
+
 	private CityMap solution;
 	private int ite;
 	
+	/**
+	 * This function allows us to find graph that are neighbors to our solution.
+	 * This means that we exchange two edges of our current graph to build a new path for the traveling salesman
+	 *
+	 * @return a list of all possible graph from our initial graph
+	 */
 	private ArrayList<CityMap> getNeighbors() {
 		ArrayList<CityMap> neighbors = new ArrayList<>();
 		for(int i = 0; i < this.solution.nbCities() ; i++) {
@@ -32,6 +39,12 @@ public class StochasticHillClimbingAlgorithm extends HillClimbingAlgorithm imple
 		return neighbors;		
 	}
 	
+	/**
+	 * Gives all the graph identified as neighbors that have a total distance smaller than our current graph
+	 *
+	 * @param neighbors the graph that are identified as "neighbors" to our current solution
+	 * @return the graphs that have a path smaller than our current graph. It can be empty
+	 */
 	private ArrayList<CityMap> betterThanCurrentState(ArrayList<CityMap> neighbors){
 		ArrayList<CityMap> betterState = new ArrayList<>();
 		for(CityMap c : neighbors) {
@@ -42,6 +55,12 @@ public class StochasticHillClimbingAlgorithm extends HillClimbingAlgorithm imple
 		return betterState;
 	}
 
+	/**
+	 * Solve the traveling salesman problem
+	 *
+	 * @return a list of cities sorted to allow the salesman to take the shorter path according to the stochastic 
+	 * hill-climbing search
+	 */
 	@Override
 	public ArrayList<City> solve(){
 		Travel init = new Travel(this.solution);
@@ -69,11 +88,21 @@ public class StochasticHillClimbingAlgorithm extends HillClimbingAlgorithm imple
 		return this.solution.getMyCities();		
 	}
 	
+	/**
+	 * Sets the initial graph.
+	 *
+	 * @param the graph we want to set
+	 */
 	@Override
 	public void setCities(CityMap cities) {
 		this.solution = cities;
 	}
 	
+	/**
+	 * Gets the solution found.
+	 *
+	 * @return the solution
+	 */
 	@Override
 	public Travel getSolution() {
 		Travel t = new Travel();
@@ -82,6 +111,11 @@ public class StochasticHillClimbingAlgorithm extends HillClimbingAlgorithm imple
 		return t;
 	}
 	
+	/**
+	 * Gets the numbers of iterations needed to solve the problem.
+	 *
+	 * @return the iteration
+	 */
 	@Override
 	public int getIteration() {
 		return ite;
