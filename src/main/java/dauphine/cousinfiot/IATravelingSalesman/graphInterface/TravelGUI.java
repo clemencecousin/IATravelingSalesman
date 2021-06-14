@@ -53,7 +53,7 @@ public class TravelGUI {
 		constraints.gridwidth = 1;
 		layout.setConstraints(myGrid, constraints);
 
-		JPanel settingsPanel = new JPanel(new GridLayout(7, 1));
+		JPanel settingsPanel = new JPanel(new GridLayout(8, 1));
 		settingsPanel.setVisible(true);
 
 		JPanel titlePanel = new JPanel();
@@ -95,7 +95,7 @@ public class TravelGUI {
 		
 		JPanel hillPanel = new JPanel();
 		hillPanel.setBackground(Color.WHITE);
-		JLabel hillSearch = new JLabel("Run hill climbing algorithm :");
+		JLabel hillSearch = new JLabel("Run hill climbing algorithm : ");
 		JButton hillButton = new JButton("Hill Climbing");
 		hillPanel.add(hillSearch);
 		hillPanel.add(hillButton);
@@ -116,6 +116,14 @@ public class TravelGUI {
 		stochasticPanel.add(stochasticSearch);
 		stochasticPanel.add(stochasticButton);
 		settingsPanel.add(stochasticPanel);
+		
+		JPanel randomPanel = new JPanel();
+		randomPanel.setBackground(Color.WHITE);
+		JLabel randomSearch = new JLabel("Run random restart hill climbing algorithm :");
+		JButton randomButton = new JButton("Random Restart Hill Climbing");
+		randomPanel.add(randomSearch);
+		randomPanel.add(randomButton);
+		settingsPanel.add(randomPanel);
 
 		constraints.gridx = 1;
 		constraints.gridy = 0;
@@ -138,6 +146,7 @@ public class TravelGUI {
 		new HillButtonController(hillButton, cities, myGrid.getParent().getGraphics(), myGrid.getParent());
 		new FirstChoiceButtonController(firstChoiceButton, cities, myGrid.getParent().getGraphics(), myGrid.getParent());
 		new StochasticButtonController(stochasticButton, cities, myGrid.getParent().getGraphics(), myGrid.getParent());
+		new RandomButtonController(randomButton, cities, myGrid.getParent().getGraphics(), myGrid.getParent());
 	}
 
 	public static void main(String[] args) {
