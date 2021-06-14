@@ -47,20 +47,6 @@ public class Travel {
 		this.citiesList = tempCities;
 	}
 
-	/**
-	 * Calculates the total distance of the salesman with this travel.
-	 * 
-	 * @return the sum of the distance between each pair of cities.
-	 */
-	public double totalDistance() {
-		double d = 0;
-		for (int i = 0; i < citiesList.size() - 1; i++) {
-			d = d + citiesList.get(i).distance(citiesList.get(i + 1));
-		}
-		d = d + citiesList.get(citiesList.size() - 1).distance(citiesList.get(0));
-		return d;
-	}
-
 	public ArrayList<City> getCitiesList() {
 		return citiesList;
 	}
@@ -125,5 +111,23 @@ public class Travel {
 	@Override
 	public String toString() {
 		return citiesList.toString();
+	}
+	
+	public CityMap getCities() {
+		return this.cities;
+	}
+	
+	/**
+	 * Calculates the total distance of the salesman with this travel.
+	 * 
+	 * @return the sum of the distance between each pair of cities.
+	 */
+	public double totalDistance() {
+		double d = 0;
+		for (int i = 0; i < citiesList.size() - 1; i++) {
+			d = d + citiesList.get(i).distance(citiesList.get(i + 1));
+		}
+		d = d + citiesList.get(citiesList.size() - 1).distance(citiesList.get(0));
+		return d;
 	}
 }

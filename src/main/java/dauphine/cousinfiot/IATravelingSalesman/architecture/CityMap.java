@@ -20,12 +20,38 @@ public class CityMap {
 			}
 			myCities.add(c);
 		}
-		for (int i = 0; i < this.myCities.size() - 1; i++) {
-			for (int j = i + 1; j < this.myCities.size(); j++) {
-				Pair<City, City> p = new Pair<>(this.myCities.get(i), this.myCities.get(j));
-				this.myGraph.put(p, this.myCities.get(i).distance(this.myCities.get(j)));
+		this.myGraph = constructGraph(this.myCities);
+		
+	}
+	
+	public static HashMap<Pair<City,City>, Double> constructGraph(ArrayList<City> c) {
+		HashMap<Pair<City,City>, Double> h = new HashMap<>();
+		for (int i = 0; i < c.size() - 1; i++) {
+			for (int j = i + 1; j < c.size(); j++) {
+				Pair<City, City> p = new Pair<>(c.get(i), c.get(j));
+				h.put(p, c.get(i).distance(c.get(j)));
 			}
 		}
+		return h;
+	}
+	
+	/**
+	 * Calculates the total distance of the salesman with this travel.
+	 * 
+	 * @return the sum of the distance between each pair of cities.
+	 */
+	public double totalDistance() {
+		double d = 0;
+		for (int i = 0; i < myCities.size() - 1; i++) {
+			d = d + myCities.get(i).distance(myCities.get(i + 1));
+		}
+		d = d + myCities.get(myCities.size() - 1).distance(myCities.get(0));
+		return d;
+	}
+	
+	public CityMap(ArrayList<City> myCities, HashMap<Pair<City, City>, Double> myGraph) {
+		this.myCities = myCities;
+		this.myGraph = myGraph;
 	}
 
 	public ArrayList<City> getMyCities() {
@@ -34,5 +60,9 @@ public class CityMap {
 
 	public HashMap<Pair<City, City>, Double> getMyGraph() {
 		return myGraph;
+	}
+	
+	public int nbCities() {
+		return this.myCities.size();
 	}
 }
