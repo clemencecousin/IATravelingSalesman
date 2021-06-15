@@ -66,11 +66,12 @@ public class RandomRestartHillClimbingAlgorithm extends HillClimbingAlgorithm im
 	 * @param sol the solution found during the last restarting
 	 * @return the solution of the problem
 	 */
-	private ArrayList<City> restart(int nbRestart, ArrayList<City> sol){
+	public ArrayList<City> restart(int nbRestart){
 		if(nbRestart == 0) {
-			return sol;
+			return this.solution.getMyCities();
 		}
-		return restart(nbRestart - 1, this.solve());
+		this.solve();
+		return restart(nbRestart - 1);
 	}
 
 	/**
@@ -135,7 +136,7 @@ public class RandomRestartHillClimbingAlgorithm extends HillClimbingAlgorithm im
 		RandomRestartHillClimbingAlgorithm g = new RandomRestartHillClimbingAlgorithm();
 		g.setCities(new CityMap(6, 500));
 
-		g.restart(7, g.solution.getMyCities());
+		g.restart(7);
 		System.out.println(g.solution.totalDistance());
 		System.out.println(g.solution.getMyGraph());
 	}

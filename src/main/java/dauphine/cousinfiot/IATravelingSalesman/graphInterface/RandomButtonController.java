@@ -34,7 +34,7 @@ public class RandomButtonController implements ActionListener {
 		RandomRestartHillClimbingAlgorithm hill = new RandomRestartHillClimbingAlgorithm();
 		hill.setCities(cities);
 
-		ArrayList<City> sol = hill.solve();
+		ArrayList<City> sol = hill.restart(8);
 		System.out.println(cities.getMyCities());
 		System.out.println(sol);
 		for (int i = 0; i < cities.getMyCities().size() - 1; i++) {
