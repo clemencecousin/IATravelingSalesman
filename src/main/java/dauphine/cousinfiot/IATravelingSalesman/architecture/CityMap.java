@@ -27,7 +27,18 @@ public class CityMap {
 			myCities.add(c);
 		}
 		this.myGraph = constructGraph(this.myCities);
-		
+	}
+	
+	public CityMap() {
+	}
+	
+	public void add(City c) {
+		if (!myCities.contains(c)) {
+			myCities.add(c);
+			if (myCities.size() > 1) {
+				this.myGraph = constructGraph(this.myCities);
+			}
+		}
 	}
 	
 	/**

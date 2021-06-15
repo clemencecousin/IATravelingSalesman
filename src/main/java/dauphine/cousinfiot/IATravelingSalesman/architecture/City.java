@@ -19,6 +19,11 @@ public class City {
 		this.x = (int) (Math.random() * a);
 		this.y = (int) (Math.random() * a);
 	}
+	
+	public City(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
 
 	public int getX() {
 		return this.x;
