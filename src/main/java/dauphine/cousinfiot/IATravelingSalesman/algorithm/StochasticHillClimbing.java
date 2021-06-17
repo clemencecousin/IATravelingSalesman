@@ -6,11 +6,11 @@ import dauphine.cousinfiot.IATravelingSalesman.architecture.City;
 import dauphine.cousinfiot.IATravelingSalesman.architecture.CityMap;
 import dauphine.cousinfiot.IATravelingSalesman.architecture.Travel;
 
-public class RandomRestartHillClimbingAlgorithm extends HillClimbingAlgorithm implements TravelingSalesmanSolve{
+public class StochasticHillClimbing extends HillClimbingAlgorithm implements TravelingSalesmanSolve {
 
 	private CityMap solution;
 	private int ite;
-
+	
 	/**
 	 * This function allows us to find graph that are neighbors to our solution.
 	 * This means that we exchange two edges of our current graph to build a new path for the traveling salesman
@@ -38,67 +38,56 @@ public class RandomRestartHillClimbingAlgorithm extends HillClimbingAlgorithm im
 		}
 		return neighbors;		
 	}
-
+	
 	/**
-	 * This function allow us to know which neighbor graph has the shortest path to solve the traveling salesman problem.
-	 * This path can be longer than the one of the current graph (will be check on function solve())
+	 * Gives all the graph identified as neighbors that have a total distance smaller than our current graph
 	 *
-	 * @param neighbors the neighbors' graph of our current graph
-	 * @return the "best" neighbor, the one with the shortest path
+	 * @param neighbors the graph that are identified as "neighbors" to our current solution
+	 * @return the graphs that have a path smaller than our current graph. It can be empty
 	 */
-	private static CityMap getBestNeighbors(ArrayList<CityMap> neighbors) {
-		double bestRoute = neighbors.get(0).totalDistance();
-		CityMap bestNeighbor = neighbors.get(0);
+	private ArrayList<CityMap> betterThanCurrentState(ArrayList<CityMap> neighbors){
+		ArrayList<CityMap> betterState = new ArrayList<>();
 		for(CityMap c : neighbors) {
-			double currentRoute = c.totalDistance();
-			if(currentRoute < bestRoute) {
-				bestRoute = currentRoute;
-				bestNeighbor = c;
+			if(c.totalDistance() < this.solution.totalDistance()) {
+				betterState.add(c);
 			}
 		}
-		return bestNeighbor;
-	}
-
-	/**
-	 * Restart the hill climbing algorithm x times in order to find a global maximum
-	 *
-	 * @param nbRestart is how many times we will restart the algorithm
-	 * @param sol the solution found during the last restarting
-	 * @return the solution of the problem
-	 */
-	public ArrayList<City> restart(int nbRestart){
-		if(nbRestart == 0) {
-			return this.solution.getMyCities();
-		}
-		this.solve();
-		return restart(nbRestart - 1);
+		return betterState;
 	}
 
 	/**
 	 * Solve the traveling salesman problem
 	 *
-	 * @return a list of cities sorted to allow the salesman to take the shorter path according to the random restart
-	 * hill-climbing search algorithm
+	 * @return a list of cities sorted to allow the salesman to take the shorter path according to the stochastic 
+	 * hill-climbing search
 	 */
 	@Override
 	public ArrayList<City> solve(){
 		Travel init = new Travel(this.solution);
-		CityMap sol = new CityMap(init.getCitiesList(), CityMap.constructGraph(init.getCitiesList()));
-		double currentRoute = sol.totalDistance();
-		CityMap neighbor = getBestNeighbors(this.getNeighbors());
+		this.solution = new CityMap(init.getCitiesList(), CityMap.constructGraph(init.getCitiesList()));
+		double currentRoute = this.solution.totalDistance();
+		ArrayList<CityMap> n = this.betterThanCurrentState(this.getNeighbors());
+		if(n.isEmpty()) {
+			return this.solution.getMyCities();
+		}
+		int nbRandom = (int)(Math.random() * ((n.size())));
+		CityMap neighbor = n.get(nbRandom);
 		ite = 0;
 		while(neighbor.totalDistance() < currentRoute) {
 			ite++;
-			sol = neighbor;
-			currentRoute = sol.totalDistance();
-			neighbor = getBestNeighbors(this.getNeighbors());
+			this.solution = neighbor;
+			currentRoute = this.solution.totalDistance();
+			n.clear();
+			n = this.getNeighbors();
+			if(n.isEmpty()) {
+				return this.solution.getMyCities();
+			}
+			nbRandom = (int)(Math.random() * ((n.size())));
+			neighbor = n.get(nbRandom);
 		}
-		if(sol.totalDistance() < this.solution.totalDistance()) {
-			this.solution = sol;
-		}
-		return sol.getMyCities();		
+		return this.solution.getMyCities();		
 	}
-
+	
 	/**
 	 * Sets the initial graph.
 	 *
@@ -131,14 +120,13 @@ public class RandomRestartHillClimbingAlgorithm extends HillClimbingAlgorithm im
 	public int getIteration() {
 		return ite;
 	}
-
+	
 	public static void main(String[] args) {
-		RandomRestartHillClimbingAlgorithm g = new RandomRestartHillClimbingAlgorithm();
+		StochasticHillClimbing g = new StochasticHillClimbing();
 		g.setCities(new CityMap(6, 500));
 
-		g.restart(7);
+		g.solve();
 		System.out.println(g.solution.totalDistance());
 		System.out.println(g.solution.getMyGraph());
 	}
-
 }

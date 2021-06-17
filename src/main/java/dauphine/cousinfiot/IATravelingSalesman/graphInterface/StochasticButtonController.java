@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 import dauphine.cousinfiot.IATravelingSalesman.algorithm.HillClimbingAlgorithm;
 import dauphine.cousinfiot.IATravelingSalesman.algorithm.LocalBeamSearch;
-import dauphine.cousinfiot.IATravelingSalesman.algorithm.StochasticHillClimbingAlgorithm;
+import dauphine.cousinfiot.IATravelingSalesman.algorithm.StochasticHillClimbing;
 import dauphine.cousinfiot.IATravelingSalesman.architecture.City;
 import dauphine.cousinfiot.IATravelingSalesman.architecture.CityMap;
 
@@ -31,7 +31,7 @@ public class StochasticButtonController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		container.update(g);
-		StochasticHillClimbingAlgorithm hill = new StochasticHillClimbingAlgorithm();
+		StochasticHillClimbing hill = new StochasticHillClimbing();
 		hill.setCities(cities);
 
 		ArrayList<City> sol = hill.solve();
