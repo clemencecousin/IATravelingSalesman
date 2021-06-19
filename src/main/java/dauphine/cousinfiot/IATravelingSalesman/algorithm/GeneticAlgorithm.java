@@ -153,7 +153,6 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 
 			for (Travel pop : population.getPopulation()) {
 				if (pop.totalDistance() < minDist) {
-					System.out.println(counter);
 					minDist = pop.totalDistance();
 					solution = pop;
 					counter = 0;
@@ -170,7 +169,7 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 
 	@Override
 	public ArrayList<City> solve() {
-		Travel t = solveTravel(0.1, 0.4);
+		Travel t = solveTravel(0.2, 0.4);
 		return t.getCitiesList();
 	}
 

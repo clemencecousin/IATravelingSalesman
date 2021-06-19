@@ -24,7 +24,7 @@ public class TestAlgorithm {
 	public TestAlgorithm(CityMap c, int width) {
 		this.firstChoice = new FirstChoiceHillClimbing();
 		this.firstChoice.setCities(c);
-		this.genetic = new GeneticAlgorithm(c);
+		this.genetic = new GeneticAlgorithm(c, width);
 		this.hillClimbing = new HillClimbingAlgorithm();
 		this.hillClimbing.setCities(c);
 		this.localBeam = new LocalBeamSearch(c, width);
@@ -190,10 +190,10 @@ public class TestAlgorithm {
 		tenCities.add(new City(98,70));
 		CityMap c10 = new CityMap(tenCities, CityMap.constructGraph(tenCities));
 		
-		TestAlgorithm t1 = new TestAlgorithm(c4, 2);
-		TestAlgorithm t2 = new TestAlgorithm(c6, 2);
-		TestAlgorithm t3 = new TestAlgorithm(c8, 2);
-		TestAlgorithm t4 = new TestAlgorithm(c10, 2);
+		TestAlgorithm t1 = new TestAlgorithm(c4, 10);
+		TestAlgorithm t2 = new TestAlgorithm(c6, 10);
+		TestAlgorithm t3 = new TestAlgorithm(c8, 10);
+		TestAlgorithm t4 = new TestAlgorithm(c10, 10);
 		
 		System.out.println("Pour 4 villes :");
 		System.out.println("First choice hill climbing :" + sum(t1.testFirstChoice(218)) + "% d'erreur par rapport à la théorie");

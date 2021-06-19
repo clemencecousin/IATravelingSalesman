@@ -64,7 +64,6 @@ public class SimulatedAnnealing implements TravelingSalesmanSolve {
 
 			double diff = tempSolution.totalDistance() - minDist;
 			if ((tempSolution.totalDistance() < minDist) || (Math.exp(-diff)/minDist > new Random().nextDouble())) {
-				System.out.println(counter);
 				minDist = tempSolution.totalDistance();
 				solution = tempSolution;
 				counter = 0;
