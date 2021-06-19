@@ -20,12 +20,14 @@ public class RandomButtonController implements ActionListener {
 	private CityMap cities;
 	private Graphics g;
 	private Container container;
+	private int restart;
 
-	public RandomButtonController(JButton button, CityMap cities, Graphics g, Container container) {
+	public RandomButtonController(JButton button, int restart, CityMap cities, Graphics g, Container container) {
 		button.addActionListener(this);
 		this.cities = cities;
 		this.g = g;
 		this.container = container;
+		this.restart = restart;
 	}
 
 	@Override
@@ -34,7 +36,7 @@ public class RandomButtonController implements ActionListener {
 		RandomRestartHillClimbingAlgorithm hill = new RandomRestartHillClimbingAlgorithm();
 		hill.setCities(cities);
 
-		ArrayList<City> sol = hill.restart(8);
+		ArrayList<City> sol = hill.restart(restart);
 		System.out.println(cities.getMyCities());
 		System.out.println(sol);
 		for (int i = 0; i < cities.getMyCities().size() - 1; i++) {
@@ -45,10 +47,9 @@ public class RandomButtonController implements ActionListener {
 				sol.get(cities.getMyCities().size() - 1).getY());
 
 		g.setColor(Color.white);
-		g.fillRect(0, 720, 300, 25);
+		g.fillRect(0, 0, 150, 25);
 		g.setColor(Color.black);
-		g.drawString("Total distance = " + Math.round(hill.getSolution().totalDistance())
-				+ " --- Number of iterations = " + hill.getIteration(), 5, 735);
+		g.drawString("Total distance = " + Math.round(hill.getSolution().totalDistance()), 5, 15);
 	}
 
 }

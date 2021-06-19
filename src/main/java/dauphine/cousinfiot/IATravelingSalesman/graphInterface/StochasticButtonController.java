@@ -45,10 +45,9 @@ public class StochasticButtonController implements ActionListener {
 				sol.get(cities.getMyCities().size() - 1).getY());
 
 		g.setColor(Color.white);
-		g.fillRect(0, 720, 300, 25);
+		g.fillRect(0, 0, 150, 25);
 		g.setColor(Color.black);
-		g.drawString("Total distance = " + Math.round(hill.getSolution().totalDistance())
-				+ " --- Number of iterations = " + hill.getIteration(), 5, 735);
+		g.drawString("Total distance = " + Math.round(hill.getSolution().totalDistance()), 5, 15);
 	}
 
 }

@@ -22,6 +22,7 @@ public class GeneticButtonController implements ActionListener {
 	private CityMap cities;
 	private Graphics g;
 	private Container container;
+	private int popSize;
 
 	/**
 	 * Constructor for ButtonController class. Put an
@@ -29,9 +30,10 @@ public class GeneticButtonController implements ActionListener {
 	 * 
 	 * @param button a {@link javax.swing.JButton JButton} which perform actions
 	 */
-	public GeneticButtonController(JButton button, CityMap cities, Graphics g, Container container) {
+	public GeneticButtonController(JButton button, int popSize, CityMap cities, Graphics g, Container container) {
 		button.addActionListener(this);
 		this.cities = cities;
+		this.popSize = popSize;
 		this.g = g;
 		this.container = container;
 	}
@@ -43,7 +45,7 @@ public class GeneticButtonController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		container.update(g);
-		GeneticAlgorithm gen = new GeneticAlgorithm(cities);
+		GeneticAlgorithm gen = new GeneticAlgorithm(cities, 50);
 
 		ArrayList<City> sol = gen.solve();
 		for (int i = 0; i < cities.getMyCities().size() - 1; i++) {
@@ -54,9 +56,9 @@ public class GeneticButtonController implements ActionListener {
 				sol.get(cities.getMyCities().size() - 1).getY());
 
 		g.setColor(Color.white);
-		g.fillRect(0, 720, 300, 25);
+		g.fillRect(0, 0, 300, 25);
 		g.setColor(Color.black);
 		g.drawString("Total distance = " + Math.round(gen.getSolution().totalDistance())
-				+ " --- Number of iterations = " + gen.getIteration(), 5, 735);
+				+ " --- Number of iterations = " + gen.getIteration(), 5, 15);
 	}
 }

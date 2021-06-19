@@ -68,7 +68,9 @@ public class Travel {
 	 * Mutation of the travel. Generate randomly a new order of cities from CityMap.
 	 */
 	public void mutate() {
-		generateTravel();
+		int c1 = new Random().nextInt(citiesList.size());
+		int c2 = new Random().nextInt(citiesList.size());
+		swap(c1, c2);
 	}
 
 	public void setCities(CityMap cities) {

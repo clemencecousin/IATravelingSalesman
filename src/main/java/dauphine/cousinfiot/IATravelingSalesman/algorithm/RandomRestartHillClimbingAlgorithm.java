@@ -9,7 +9,6 @@ import dauphine.cousinfiot.IATravelingSalesman.architecture.Travel;
 public class RandomRestartHillClimbingAlgorithm extends HillClimbingAlgorithm implements TravelingSalesmanSolve{
 
 	private CityMap solution;
-	private int ite;
 
 	/**
 	 * This function allows us to find graph that are neighbors to our solution.
@@ -86,9 +85,7 @@ public class RandomRestartHillClimbingAlgorithm extends HillClimbingAlgorithm im
 		CityMap sol = new CityMap(init.getCitiesList(), CityMap.constructGraph(init.getCitiesList()));
 		double currentRoute = sol.totalDistance();
 		CityMap neighbor = getBestNeighbors(this.getNeighbors());
-		ite = 0;
 		while(neighbor.totalDistance() < currentRoute) {
-			ite++;
 			sol = neighbor;
 			currentRoute = sol.totalDistance();
 			neighbor = getBestNeighbors(this.getNeighbors());
@@ -129,7 +126,7 @@ public class RandomRestartHillClimbingAlgorithm extends HillClimbingAlgorithm im
 	 */
 	@Override
 	public int getIteration() {
-		return ite;
+		return 0;
 	}
 
 	public static void main(String[] args) {

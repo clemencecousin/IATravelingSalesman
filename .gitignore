@@ -1,4 +1,5 @@
 out.log
 
 target/
-
+.idea/
+IATravelingSalesman.iml

@@ -13,11 +13,9 @@ import dauphine.cousinfiot.IATravelingSalesman.architecture.Travel;
  */
 public class SimulatedAnnealing implements TravelingSalesmanSolve {
 	private Travel solution;
-	private CityMap cities;
 	private int iteration = 0;
 
 	public SimulatedAnnealing(CityMap cities) {
-		this.cities = cities;
 		this.solution = new Travel(cities);
 	}
 
@@ -64,7 +62,9 @@ public class SimulatedAnnealing implements TravelingSalesmanSolve {
 				}
 			}
 
-			if (tempSolution.totalDistance() < minDist) {
+			double diff = tempSolution.totalDistance() - minDist;
+			if ((tempSolution.totalDistance() < minDist) || (Math.exp(-diff)/minDist > new Random().nextDouble())) {
+				System.out.println(counter);
 				minDist = tempSolution.totalDistance();
 				solution = tempSolution;
 				counter = 0;
@@ -87,11 +87,11 @@ public class SimulatedAnnealing implements TravelingSalesmanSolve {
 	}
 
 	public static void main(String[] args) {
-		CityMap cities = new CityMap(6, 400);
+		CityMap cities = new CityMap(30, 400);
 		SimulatedAnnealing sa = new SimulatedAnnealing(cities);
-		GeneticAlgorithm ga = new GeneticAlgorithm(cities);
+//		GeneticAlgorithm ga = new GeneticAlgorithm(cities, 20);
 
-		System.out.println("---" + ga.solve());
+//		System.out.println("---" + ga.solve());
 		System.out.println("---" + sa.solve());
 	}
 }
