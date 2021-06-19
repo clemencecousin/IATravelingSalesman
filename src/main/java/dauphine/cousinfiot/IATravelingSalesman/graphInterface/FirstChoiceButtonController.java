@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-import dauphine.cousinfiot.IATravelingSalesman.algorithm.FirstChoiceHillClimbingAlgorithm;
+import dauphine.cousinfiot.IATravelingSalesman.algorithm.FirstChoiceHillClimbing;
 import dauphine.cousinfiot.IATravelingSalesman.algorithm.HillClimbingAlgorithm;
 import dauphine.cousinfiot.IATravelingSalesman.algorithm.LocalBeamSearch;
 import dauphine.cousinfiot.IATravelingSalesman.architecture.City;
@@ -31,7 +31,7 @@ public class FirstChoiceButtonController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		container.update(g);
-		FirstChoiceHillClimbingAlgorithm hill = new FirstChoiceHillClimbingAlgorithm();
+		FirstChoiceHillClimbing hill = new FirstChoiceHillClimbing();
 		hill.setCities(cities);
 
 		ArrayList<City> sol = hill.solve();

@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 import dauphine.cousinfiot.IATravelingSalesman.algorithm.HillClimbingAlgorithm;
 import dauphine.cousinfiot.IATravelingSalesman.algorithm.LocalBeamSearch;
-import dauphine.cousinfiot.IATravelingSalesman.algorithm.RandomRestartHillClimbingAlgorithm;
+import dauphine.cousinfiot.IATravelingSalesman.algorithm.RandomRestartHillClimbing;
 import dauphine.cousinfiot.IATravelingSalesman.architecture.City;
 import dauphine.cousinfiot.IATravelingSalesman.architecture.CityMap;
 
@@ -33,7 +33,7 @@ public class RandomButtonController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		container.update(g);
-		RandomRestartHillClimbingAlgorithm hill = new RandomRestartHillClimbingAlgorithm();
+		RandomRestartHillClimbing hill = new RandomRestartHillClimbing();
 		hill.setCities(cities);
 
 		ArrayList<City> sol = hill.restart(restart);

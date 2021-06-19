@@ -6,7 +6,7 @@ import dauphine.cousinfiot.IATravelingSalesman.architecture.City;
 import dauphine.cousinfiot.IATravelingSalesman.architecture.CityMap;
 import dauphine.cousinfiot.IATravelingSalesman.architecture.Travel;
 
-public class RandomRestartHillClimbingAlgorithm extends HillClimbingAlgorithm implements TravelingSalesmanSolve{
+public class RandomRestartHillClimbing extends HillClimbingAlgorithm implements TravelingSalesmanSolve{
 
 	private CityMap solution;
 
@@ -130,7 +130,7 @@ public class RandomRestartHillClimbingAlgorithm extends HillClimbingAlgorithm im
 	}
 
 	public static void main(String[] args) {
-		RandomRestartHillClimbingAlgorithm g = new RandomRestartHillClimbingAlgorithm();
+		RandomRestartHillClimbing g = new RandomRestartHillClimbing();
 		g.setCities(new CityMap(6, 500));
 
 		g.restart(7);

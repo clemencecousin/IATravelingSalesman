@@ -6,7 +6,7 @@ import dauphine.cousinfiot.IATravelingSalesman.architecture.City;
 import dauphine.cousinfiot.IATravelingSalesman.architecture.CityMap;
 import dauphine.cousinfiot.IATravelingSalesman.architecture.Travel;
 
-public class FirstChoiceHillClimbingAlgorithm extends HillClimbingAlgorithm implements TravelingSalesmanSolve {
+public class FirstChoiceHillClimbing extends HillClimbingAlgorithm implements TravelingSalesmanSolve {
 
 	private CityMap solution;
 
@@ -121,7 +121,7 @@ public class FirstChoiceHillClimbingAlgorithm extends HillClimbingAlgorithm impl
 	}
 
 	public static void main(String[] args) {
-		FirstChoiceHillClimbingAlgorithm g = new FirstChoiceHillClimbingAlgorithm();
+		FirstChoiceHillClimbing g = new FirstChoiceHillClimbing();
 		g.setCities(new CityMap(6, 500));
 		g.solve();
 		System.out.println(g.solution.totalDistance());

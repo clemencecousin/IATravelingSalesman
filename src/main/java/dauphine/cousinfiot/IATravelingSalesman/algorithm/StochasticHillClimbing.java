@@ -6,7 +6,7 @@ import dauphine.cousinfiot.IATravelingSalesman.architecture.City;
 import dauphine.cousinfiot.IATravelingSalesman.architecture.CityMap;
 import dauphine.cousinfiot.IATravelingSalesman.architecture.Travel;
 
-public class StochasticHillClimbingAlgorithm extends HillClimbingAlgorithm implements TravelingSalesmanSolve {
+public class StochasticHillClimbing extends HillClimbingAlgorithm implements TravelingSalesmanSolve {
 
 	private CityMap solution;
 	private int ite;
@@ -122,7 +122,7 @@ public class StochasticHillClimbingAlgorithm extends HillClimbingAlgorithm imple
 	}
 	
 	public static void main(String[] args) {
-		StochasticHillClimbingAlgorithm g = new StochasticHillClimbingAlgorithm();
+		StochasticHillClimbing g = new StochasticHillClimbing();
 		g.setCities(new CityMap(6, 500));
 
 		g.solve();

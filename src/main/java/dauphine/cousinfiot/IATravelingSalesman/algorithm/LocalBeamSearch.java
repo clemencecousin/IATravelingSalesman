@@ -55,9 +55,6 @@ public class LocalBeamSearch implements TravelingSalesmanSolve {
 		while (loop) {
 			iteration++;
 			counter++;
-			System.out.println("it : " + iteration);
-			System.out.println(kBest);
-			System.out.println();
 			generateNewGeneration();
 			List<Travel> sortGeneration = newGeneration.getSortPop();
 			kBest = new Population();
