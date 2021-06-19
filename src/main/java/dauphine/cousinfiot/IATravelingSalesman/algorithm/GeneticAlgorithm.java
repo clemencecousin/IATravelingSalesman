@@ -126,7 +126,7 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 	 *         journey to solve the problem.
 	 */
 	public Travel solveTravel(double mutationRate, double elitistRate) {
-		Travel solution = null;
+		Travel sol = null;
 		double minDist = Double.POSITIVE_INFINITY;
 		Boolean loop = true;
 		int counter = 0;
@@ -154,7 +154,7 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 			for (Travel pop : population.getPopulation()) {
 				if (pop.totalDistance() < minDist) {
 					minDist = pop.totalDistance();
-					solution = pop;
+					sol = pop;
 					counter = 0;
 				}
 
@@ -163,8 +163,8 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 			}
 		}
 
-		this.solution = solution;
-		return solution;
+		this.solution = sol;
+		return sol;
 	}
 
 	@Override
