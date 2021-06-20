@@ -200,7 +200,7 @@ public class TestAlgorithm {
 		System.out.println("Genetic algorithm :" + sum(t1.testGenetic(218)) + "% d'erreur par rapport à la théorie");
 		System.out.println("Hill climbing :" + sum(t1.testHillClimbing(218)) + "% d'erreur par rapport à la théorie");
 		System.out.println("Local beam search :" + sum(t1.testLocalBeam(218)) + "% d'erreur par rapport à la théorie");
-		System.out.println("Random restart hill climbing :" + sum(t1.testRandomRestart(218, 4)) + "% d'erreur par rapport à la théorie");
+		System.out.println("Random restart hill climbing :" + sum(t1.testRandomRestart(218,4)) + "% d'erreur par rapport à la théorie");
 		System.out.println("Simulated annealing :" + sum(t1.testSimulatedAnnealing(218)) + "% d'erreur par rapport à la théorie");
 		System.out.println("Stochastic hill climbing :" + sum(t1.testStochasticHill(218)) + "% d'erreur par rapport à la théorie");
 		System.out.println();
