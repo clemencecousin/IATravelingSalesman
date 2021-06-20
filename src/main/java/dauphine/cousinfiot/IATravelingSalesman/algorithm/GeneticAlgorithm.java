@@ -20,9 +20,9 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 	Travel solution = null;
 	int iteration = 0;
 
-	public GeneticAlgorithm(CityMap cities) {
+	public GeneticAlgorithm(CityMap cities, int popSize) {
 		setCities(cities);
-		generatePopulation(cities.getMyCities().size());
+		generatePopulation(popSize);
 	}
 
 	/**
@@ -126,7 +126,7 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 	 *         journey to solve the problem.
 	 */
 	public Travel solveTravel(double mutationRate, double elitistRate) {
-		Travel solution = null;
+		Travel sol = null;
 		double minDist = Double.POSITIVE_INFINITY;
 		Boolean loop = true;
 		int counter = 0;
@@ -154,7 +154,7 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 			for (Travel pop : population.getPopulation()) {
 				if (pop.totalDistance() < minDist) {
 					minDist = pop.totalDistance();
-					solution = pop;
+					sol = pop;
 					counter = 0;
 				}
 
@@ -163,13 +163,13 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 			}
 		}
 
-		this.solution = solution;
-		return solution;
+		this.solution = sol;
+		return sol;
 	}
 
 	@Override
 	public ArrayList<City> solve() {
-		Travel t = solveTravel(0.1, 0.4);
+		Travel t = solveTravel(0.2, 0.4);
 		return t.getCitiesList();
 	}
 
@@ -188,9 +188,9 @@ public class GeneticAlgorithm implements TravelingSalesmanSolve {
 	}
 
 	public static void main(String[] args) {
-		GeneticAlgorithm g = new GeneticAlgorithm(new CityMap(6, 500));
+		GeneticAlgorithm g = new GeneticAlgorithm(new CityMap(20, 500), 30);
 
 		ArrayList<City> sol = g.solve();
-		System.out.println(g.cities.getMyGraph());
+		System.out.println(g.getSolution());
 	}
 }

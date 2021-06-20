@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import dauphine.cousinfiot.IATravelingSalesman.architecture.CityMap;
@@ -72,8 +73,11 @@ public class TravelGUI {
 		JLabel geneticAlgoHelp = new JLabel("Run genetic algorithm : ");
 		geneticAlgoHelp.setBorder(BorderFactory.createEmptyBorder(0, 40, 0, 40));
 		JButton geneticAlgoButton = new JButton("Genetic Algorithm");
+        JTextField popSize = new JTextField(3);
+        popSize.setText("10");
 		GeneticPanel.add(geneticAlgoHelp);
 		GeneticPanel.add(geneticAlgoButton);
+		GeneticPanel.add(popSize);
 		settingsPanel.add(GeneticPanel);
 
 		JPanel annealingPanel = new JPanel();
@@ -89,8 +93,11 @@ public class TravelGUI {
 		beamSearchPanel.setBackground(Color.WHITE);
 		JLabel beamSearch = new JLabel("Run local beam search algorithm :");
 		JButton beamSearchButton = new JButton("Local beam search");
+        JTextField width = new JTextField(3);
+        width.setText("2");
 		beamSearchPanel.add(beamSearch);
 		beamSearchPanel.add(beamSearchButton);
+		beamSearchPanel.add(width);
 		settingsPanel.add(beamSearchPanel);
 		
 		JPanel hillPanel = new JPanel();
@@ -121,8 +128,11 @@ public class TravelGUI {
 		randomPanel.setBackground(Color.WHITE);
 		JLabel randomSearch = new JLabel("Run random restart hill climbing algorithm :");
 		JButton randomButton = new JButton("Random Restart Hill Climbing");
+        JTextField restart = new JTextField(3);
+        restart.setText("10");
 		randomPanel.add(randomSearch);
 		randomPanel.add(randomButton);
+		randomPanel.add(restart);
 		settingsPanel.add(randomPanel);
 
 		constraints.gridx = 1;
@@ -140,13 +150,13 @@ public class TravelGUI {
 		frame.setVisible(true);
 
 		new newParamButtonController(newParamButton);
-		new GeneticButtonController(geneticAlgoButton, cities, myGrid.getParent().getGraphics(), myGrid.getParent());
+		new GeneticButtonController(geneticAlgoButton, Integer.parseInt(popSize.getText()), cities, myGrid.getParent().getGraphics(), myGrid.getParent());
 		new AnnealingButtonController(annealingButton, cities, myGrid.getParent().getGraphics(), myGrid.getParent());
-		new BeamButtonController(beamSearchButton, cities, myGrid.getParent().getGraphics(), myGrid.getParent());
+		new BeamButtonController(beamSearchButton, Integer.parseInt(width.getText()), cities, myGrid.getParent().getGraphics(), myGrid.getParent());
 		new HillButtonController(hillButton, cities, myGrid.getParent().getGraphics(), myGrid.getParent());
 		new FirstChoiceButtonController(firstChoiceButton, cities, myGrid.getParent().getGraphics(), myGrid.getParent());
 		new StochasticButtonController(stochasticButton, cities, myGrid.getParent().getGraphics(), myGrid.getParent());
-		new RandomButtonController(randomButton, cities, myGrid.getParent().getGraphics(), myGrid.getParent());
+		new RandomButtonController(randomButton, Integer.parseInt(restart.getText()), cities, myGrid.getParent().getGraphics(), myGrid.getParent());
 	}
 
 	public static void main(String[] args) {

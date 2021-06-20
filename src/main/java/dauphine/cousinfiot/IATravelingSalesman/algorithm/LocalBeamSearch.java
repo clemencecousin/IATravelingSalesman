@@ -8,6 +8,10 @@ import dauphine.cousinfiot.IATravelingSalesman.architecture.CityMap;
 import dauphine.cousinfiot.IATravelingSalesman.architecture.Population;
 import dauphine.cousinfiot.IATravelingSalesman.architecture.Travel;
 
+// TODO: Auto-generated Javadoc
+/**
+ * Using the local beam search algorithm to solve the traveling salesman problem.
+ */
 public class LocalBeamSearch implements TravelingSalesmanSolve {
 	private CityMap cities;
 	private int width;
@@ -16,12 +20,21 @@ public class LocalBeamSearch implements TravelingSalesmanSolve {
 	private int iteration;
 	private Travel solution;
 
+	/**
+	 * Instantiates a new local beam search.
+	 *
+	 * @param cities a CityMap
+	 * @param width the size of the population
+	 */
 	public LocalBeamSearch(CityMap cities, int width) {
 		this.cities = cities;
 		this.width = width;
 		init();
 	}
 
+	/**
+	 * Inits the algorithm by creating a population.
+	 */
 	private void init() {
 		kBest = new Population();
 		while (kBest.getPopulationSize() < width) {
@@ -29,6 +42,9 @@ public class LocalBeamSearch implements TravelingSalesmanSolve {
 		}
 	}
 
+	/**
+	 * Generate all the descendants of the population to make a new generation.
+	 */
 	private void generateNewGeneration() {
 		newGeneration = new Population();
 		List<Travel> keyList = kBest.getPopulation();

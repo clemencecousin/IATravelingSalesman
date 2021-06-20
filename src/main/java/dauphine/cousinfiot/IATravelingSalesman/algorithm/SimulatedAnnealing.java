@@ -8,16 +8,15 @@ import dauphine.cousinfiot.IATravelingSalesman.architecture.CityMap;
 import dauphine.cousinfiot.IATravelingSalesman.architecture.Travel;
 
 /**
- * https://www.fourmilab.ch/documents/travelling/anneal/
+ * Using the simulated annealing algorithm to solve the traveling salesman problem.
+ * We used https://www.fourmilab.ch/documents/travelling/anneal/ to help us.
  *
  */
 public class SimulatedAnnealing implements TravelingSalesmanSolve {
 	private Travel solution;
-	private CityMap cities;
 	private int iteration = 0;
 
 	public SimulatedAnnealing(CityMap cities) {
-		this.cities = cities;
 		this.solution = new Travel(cities);
 	}
 
@@ -64,7 +63,8 @@ public class SimulatedAnnealing implements TravelingSalesmanSolve {
 				}
 			}
 
-			if (tempSolution.totalDistance() < minDist) {
+			double diff = tempSolution.totalDistance() - minDist;
+			if ((tempSolution.totalDistance() < minDist) || (Math.exp(-diff)/minDist > new Random().nextDouble())) {
 				minDist = tempSolution.totalDistance();
 				solution = tempSolution;
 				counter = 0;
@@ -87,11 +87,8 @@ public class SimulatedAnnealing implements TravelingSalesmanSolve {
 	}
 
 	public static void main(String[] args) {
-		CityMap cities = new CityMap(6, 400);
+		CityMap cities = new CityMap(30, 400);
 		SimulatedAnnealing sa = new SimulatedAnnealing(cities);
-		GeneticAlgorithm ga = new GeneticAlgorithm(cities);
-
-		System.out.println("---" + ga.solve());
-		System.out.println("---" + sa.solve());
+		System.out.println(sa.solve());
 	}
 }

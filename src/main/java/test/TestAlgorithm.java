@@ -21,16 +21,18 @@ public class TestAlgorithm {
 	SimulatedAnnealing simulatedAnnealing;
 	StochasticHillClimbing stochastic;
 	
+	CityMap c;
+	int width;
+	
 	public TestAlgorithm(CityMap c, int width) {
+		this.c = c;
+		this.width = width;
 		this.firstChoice = new FirstChoiceHillClimbing();
 		this.firstChoice.setCities(c);
-		this.genetic = new GeneticAlgorithm(c);
 		this.hillClimbing = new HillClimbingAlgorithm();
 		this.hillClimbing.setCities(c);
-		this.localBeam = new LocalBeamSearch(c, width);
 		this.randomRestart = new RandomRestartHillClimbing();
 		this.randomRestart.setCities(c);
-		this.simulatedAnnealing = new SimulatedAnnealing(c);
 		this.stochastic = new StochasticHillClimbing();	
 		this.stochastic.setCities(c);
 	}
@@ -68,6 +70,7 @@ public class TestAlgorithm {
 	private ArrayList<Integer> testGenetic(double theoricalResult){
 		ArrayList<Integer> results = new ArrayList<>();
 		for(int i = 0; i < 100 ; i++) {
+			this.genetic = new GeneticAlgorithm(c, width);
 			ArrayList<City> geneticCity = this.genetic.solve();
 			CityMap geneticResult = new CityMap(geneticCity, CityMap.constructGraph(geneticCity));
 			if(geneticResult.totalDistance()>= (theoricalResult - 5) && geneticResult.totalDistance() <= (theoricalResult + 5)) {
@@ -83,6 +86,7 @@ public class TestAlgorithm {
 	private ArrayList<Integer> testLocalBeam(double theoricalResult){
 		ArrayList<Integer> results = new ArrayList<>();
 		for(int i = 0; i < 100 ; i++) {
+			this.localBeam = new LocalBeamSearch(c, width);
 			ArrayList<City> localBeamCity = this.localBeam.solve();
 			CityMap localBeamResult = new CityMap(localBeamCity, CityMap.constructGraph(localBeamCity));
 			if(localBeamResult.totalDistance()>= (theoricalResult - 5) && localBeamResult.totalDistance() <= (theoricalResult + 5)) {
@@ -113,6 +117,7 @@ public class TestAlgorithm {
 	private ArrayList<Integer> testSimulatedAnnealing(double theoricalResult){
 		ArrayList<Integer> results = new ArrayList<>();
 		for(int i = 0; i < 100 ; i++) {
+			this.simulatedAnnealing = new SimulatedAnnealing(c);
 			ArrayList<City> simulatedCity = this.simulatedAnnealing.solve();
 			CityMap simulatedResult = new CityMap(simulatedCity, CityMap.constructGraph(simulatedCity));
 			if(simulatedResult.totalDistance()>= (theoricalResult - 5) && simulatedResult.totalDistance() <= (theoricalResult + 5)) {
@@ -190,10 +195,10 @@ public class TestAlgorithm {
 		tenCities.add(new City(98,70));
 		CityMap c10 = new CityMap(tenCities, CityMap.constructGraph(tenCities));
 		
-		TestAlgorithm t1 = new TestAlgorithm(c4, 2);
-		TestAlgorithm t2 = new TestAlgorithm(c6, 2);
-		TestAlgorithm t3 = new TestAlgorithm(c8, 2);
-		TestAlgorithm t4 = new TestAlgorithm(c10, 2);
+		TestAlgorithm t1 = new TestAlgorithm(c4, 20);
+		TestAlgorithm t2 = new TestAlgorithm(c6, 20);
+		TestAlgorithm t3 = new TestAlgorithm(c8, 20);
+		TestAlgorithm t4 = new TestAlgorithm(c10, 20);
 		
 		System.out.println("Pour 4 villes :");
 		System.out.println("First choice hill climbing :" + sum(t1.testFirstChoice(218)) + "% d'erreur par rapport à la théorie");
@@ -234,6 +239,24 @@ public class TestAlgorithm {
 		System.out.println("Simulated annealing :" + sum(t4.testSimulatedAnnealing(266)) + "% d'erreur par rapport à la théorie");
 		System.out.println("Stochastic hill climbing :" + sum(t4.testStochasticHill(266)) + "% d'erreur par rapport à la théorie");
 		System.out.println();
+		
+		TestAlgorithm t5 = new TestAlgorithm(c10, 5);
+		TestAlgorithm t10 = new TestAlgorithm(c10, 10);
+		TestAlgorithm t20 = new TestAlgorithm(c10, 20);
+		TestAlgorithm t30 = new TestAlgorithm(c10, 30);
+
+		System.out.println("Perfomance genetic algo en modifiant la taille de la population :");
+		System.out.println("Population taille 5 :" + sum(t5.testGenetic(266)) + "% d'erreur par rapport à la théorie");
+		System.out.println("Population taille 10 :" + sum(t10.testGenetic(266)) + "% d'erreur par rapport à la théorie");
+		System.out.println("Population taille 20 :" + sum(t20.testGenetic(266)) + "% d'erreur par rapport à la théorie");
+		System.out.println("Population taille 30 :" + sum(t30.testGenetic(266)) + "% d'erreur par rapport à la théorie");
+		System.out.println();
+		
+		System.out.println("Perfomance local beam search en modifiant la taille de la population :");
+		System.out.println("Population taille 5 :" + sum(t5.testLocalBeam(266)) + "% d'erreur par rapport à la théorie");
+		System.out.println("Population taille 10 :" + sum(t10.testLocalBeam(266)) + "% d'erreur par rapport à la théorie");
+		System.out.println("Population taille 20 :" + sum(t20.testLocalBeam(266)) + "% d'erreur par rapport à la théorie");
+		System.out.println("Population taille 30 :" + sum(t30.testLocalBeam(266)) + "% d'erreur par rapport à la théorie");			
 	}
 
 }

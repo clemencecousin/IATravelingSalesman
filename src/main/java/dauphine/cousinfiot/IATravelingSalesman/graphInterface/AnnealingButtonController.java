@@ -56,9 +56,9 @@ public class AnnealingButtonController implements ActionListener {
 				sol.get(cities.getMyCities().size() - 1).getY());
 
 		g.setColor(Color.white);
-		g.fillRect(0, 720, 300, 25);
+		g.fillRect(0, 0, 300, 25);
 		g.setColor(Color.black);
 		g.drawString("Total distance = " + Math.round(anneal.getSolution().totalDistance())
-				+ " --- Number of iterations = " + anneal.getIteration(), 5, 735);
+				+ " --- Number of iterations = " + anneal.getIteration(), 5, 15);
 	}
 }
