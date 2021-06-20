@@ -195,10 +195,10 @@ public class TestAlgorithm {
 		tenCities.add(new City(98,70));
 		CityMap c10 = new CityMap(tenCities, CityMap.constructGraph(tenCities));
 		
-		TestAlgorithm t1 = new TestAlgorithm(c4, 10);
-		TestAlgorithm t2 = new TestAlgorithm(c6, 10);
-		TestAlgorithm t3 = new TestAlgorithm(c8, 10);
-		TestAlgorithm t4 = new TestAlgorithm(c10, 10);
+		TestAlgorithm t1 = new TestAlgorithm(c4, 20);
+		TestAlgorithm t2 = new TestAlgorithm(c6, 20);
+		TestAlgorithm t3 = new TestAlgorithm(c8, 20);
+		TestAlgorithm t4 = new TestAlgorithm(c10, 20);
 		
 		System.out.println("Pour 4 villes :");
 		System.out.println("First choice hill climbing :" + sum(t1.testFirstChoice(218)) + "% d'erreur par rapport à la théorie");
@@ -250,13 +250,6 @@ public class TestAlgorithm {
 		System.out.println("Population taille 10 :" + sum(t10.testGenetic(266)) + "% d'erreur par rapport à la théorie");
 		System.out.println("Population taille 20 :" + sum(t20.testGenetic(266)) + "% d'erreur par rapport à la théorie");
 		System.out.println("Population taille 30 :" + sum(t30.testGenetic(266)) + "% d'erreur par rapport à la théorie");
-		System.out.println();
-		
-		System.out.println("Perfomance simulated annealing algo en modifiant la taille de la population :");
-		System.out.println("Population taille 5 :" + sum(t5.testSimulatedAnnealing(266)) + "% d'erreur par rapport à la théorie");
-		System.out.println("Population taille 10 :" + sum(t10.testSimulatedAnnealing(266)) + "% d'erreur par rapport à la théorie");
-		System.out.println("Population taille 20 :" + sum(t20.testSimulatedAnnealing(266)) + "% d'erreur par rapport à la théorie");
-		System.out.println("Population taille 30 :" + sum(t30.testSimulatedAnnealing(266)) + "% d'erreur par rapport à la théorie");
 		System.out.println();
 		
 		System.out.println("Perfomance local beam search en modifiant la taille de la population :");
